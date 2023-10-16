@@ -22,7 +22,7 @@
         // Function to send a POST request to the backend to store the message
         function sendMessage() {
             const message = document.getElementById("message").value;
-            const apiUrl = "https://cors-anywhere-herokuapp.com/https://whispbackend.duckdns.org/messageDB";
+            const apiUrl = "https://whispbackend.duckdns.org/messageDB";
 
             // Create a data object to send in the POST request
             const data = {
@@ -53,7 +53,7 @@
 
         // Function to send a GET request to fetch the message
         function getMessage() {
-            const apiUrl = "https://cors-anywhere-herokuapp.com/https://whispbackend.duckdns.org/messageDB";
+            const apiUrl = "https://whispbackend.duckdns.org/messageDB";
 
             // Perform a GET request to fetch the message
             fetch(apiUrl, {
