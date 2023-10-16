@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Whisp Chat</title>
+    <style>
+        p {
+            color: white;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #424549;
+        }
+
+        #chat-container {
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-end;
+            height: 500px; /* Adjust the height as needed */
+            border: 1px solid #ccc;
+            overflow-y: scroll;
+            padding: 10px;
+            background-color: #282b30;
+        }
+
+        #messages {
+            flex-grow: 1;
+        }
+
+        #input-container {
+            display: flex;
+            background-color: #282b30;
+            padding: 10px;
+        }
+
+        #message-input {
+            flex-grow: 1;
+            padding: 5px;
+            font-size: 16px;
+            background-color: #36393e;
+            color: white;
+        }
+
+        #send-button {
+            background-color: #7289da;
+            color: #fff;
+            border: none;
+            padding: 10px 20px;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+    <div id="navbar-container"></div>
+    <script>
+        const navbarContainer = document.getElementById("navbar-container");
+        const xhttp = new XMLHttpRequest();
+        xhttp.onreadystatechange = function() {
+            if (this.readyState == 4 && this.status == 200) {
+                navbarContainer.innerHTML = this.responseText;
+            }
+        };
+        xhttp.open("GET", "/navbar.html", true);
+        xhttp.send();
+    </script>
+
+    <div id="chat-container">
+        <div id="messages"></div>
+        <div id="input-container">
+            <input type="text" id="message-input" placeholder="Type your message...">
+            <button id="send-button">Send</button>
+        </div>
+    </div>
+
+    <script>
+        const messagesDiv = document.getElementById("messages");
+        const messageInput = document.getElementById("message-input");
+        const sendButton = document.getElementById("send-button");
+
+        // Function to add a new message to the chat
+        function addMessage(message) {
+            const timestamp = getCurrentTime();
+            const messageElement = document.createElement("p");
+            messageElement.textContent = `[${timestamp}] ${message}`;
+            messagesDiv.appendChild(messageElement);
+        }
+
+        function getCurrentTime() {
+            const now = new Date();
+            const hours = now.getHours();
+            const minutes = now.getMinutes().toString().padStart(2, "0");
+            const seconds = now.getSeconds().toString().padStart(2, "0");
+            const ampm = hours >= 12 ? 'PM' : 'AM';
+            const date =  now.getMonth() + "/" + now.getDay() + "/" + now.getFullYear();
+            const formattedHours = hours % 12 || 12;
+            return `${date} at ${formattedHours}:${minutes} ${ampm}`;
+        }
+
+        // Event listener for the send button
+        sendButton.addEventListener("click", () => {
+            const message = messageInput.value;
+            if (message) {
+                addMessage(message);
+                messageInput.value = "";
+            }
+        });
+
+        // Event listener for pressing Enter in the input field
+        messageInput.addEventListener("keyup", (event) => {
+            if (event.key === "Enter") {
+                sendButton.click();
+            }
+        });
+    </script>
+</body>
+</html>
