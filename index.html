@@ -1,9 +1,18 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <!-- Your HTML header content here -->
-</head>
 <body>
+    <div id="navbar-container"></div>
+    <script>
+        const navbarContainer = document.getElementById("navbar-container");
+        const xhttp = new XMLHttpRequest();
+        xhttp.onreadystatechange = function() {
+            if (this.readyState == 4 && this.status == 200) {
+                navbarContainer.innerHTML = this.responseText;
+            }
+        };
+        xhttp.open("GET", "navbar.html", true);
+        xhttp.send();
+    </script>
     <input name="text" type="text" id="message" placeholder="Type your message...">
     <button id="send-button">Send Message</button>
     <button id="get-button">Get Message</button>

@@ -26,6 +26,18 @@
     </style>
 </head>
 <body>
+    <div id="navbar-container"></div>
+    <script>
+        const navbarContainer = document.getElementById("navbar-container");
+        const xhttp = new XMLHttpRequest();
+        xhttp.onreadystatechange = function() {
+            if (this.readyState == 4 && this.status == 200) {
+                navbarContainer.innerHTML = this.responseText;
+            }
+        };
+        xhttp.open("GET", "/navbar.html", true);
+        xhttp.send();
+    </script>
     <h1>Connect Four Game</h1>
     <table>
         {% for row in board %}
