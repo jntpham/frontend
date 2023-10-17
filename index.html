@@ -53,33 +53,30 @@
 
         // Function to send a GET request to fetch the message
         function getMessage() {
-            const apiUrl = "https://whispbackend.duckdns.org/messageDB";
-            // const apiUrl = "http://127.0.0.1:5001/messageDB"
+    const apiUrl = "https://whispbackend.duckdns.org/messageDB";
 
-            // Perform a GET request to fetch the message
-            fetch(apiUrl, {
-                method: "GET"
-            })
-            .then(response => {
-                if (!response.ok) {
-                    throw new Error('Network response was not ok');
-                }
-                return response.json();
-            })
-            .then(data => {
-                document.getElementById("message").value = data.message;
-                data = JSON.stringify(data);
-                data = JSON.parse(data);
-                var tempstring = ""
-                for (let i in data){
-                    tempstring += data[i] + "<br>";
-                }
-                document.getElementById("response").innerHTML = tempstring;
-            })
-            .catch(error => {
-                document.getElementById("response").textContent = "Error: " + error;
-            });
+    // Perform a GET request to fetch the message
+    fetch(apiUrl, {
+        method: "GET"
+    })
+    .then(response => {
+        if (!response.ok) {
+            throw new Error('Network response was not ok');
         }
+        return response.json();
+    })
+    .then(data => {
+        if (data.hasOwnProperty("message")) {
+            document.getElementById("message").value = data.message;
+            document.getElementById("response").textContent = "Response: " + data.message;
+        } else {
+            document.getElementById("response").textContent = "Response does not contain a 'message' property.";
+        }
+    })
+    .catch(error => {
+        document.getElementById("response").textContent = "Error: " + error;
+    });
+}
 
         // Add an event listener to the "Send Message" button
         document.getElementById("send-button").addEventListener("click", sendMessage);
