@@ -50,20 +50,20 @@
     </style>
 </head>
 <body>
-    <form method="POST" action="" style="border: none;">
+    <form method="POST" action="" style="border: none;" id="myForm">
         <fieldset class="form-group" style="border: none;">
             <div class="text-center">
                 <img class="form-group" width="200" height="200" src="https://cdn.discordapp.com/attachments/909947635715153952/1159715288594518016/image-removebg-preview.png?ex=65320807&is=651f9307&hm=7e5c7faa637bf72b94c41a70a23ca13ab65531bd9cb90d7604379ac76f6560b1" style="border: none;">
             </div>
             <h1>Welcome back to Whisp</h1>
             <div class="form-group" style="border: none;">
-                <input type="text" id="myForm" class="form-control form-control-lg" name="username" placeholder="Username" style="border: none;">
+                <input type="text" id="usernameField" class="form-control form-control-lg" name="username" placeholder="Username" style="border: none;">
                 <div class="invalid-feedback">
                     <!-- Error messages for username can be added here -->
                 </div>
             </div>
             <div class="form-group" style="border: none;">
-                <input type="password" id="myForm" class="form-control form-control-lg" name="password" placeholder="Password" style="border: none;">
+                <input type="password" id="passwordField" class="form-control form-control-lg" name="password" placeholder="Password" style="border: none;">
                 <div class="invalid-feedback">
                     <!-- Error messages for password can be added here -->
                 </div>
@@ -82,7 +82,9 @@
     </form>
 
     <script>
-        const form = document.getElementById('myForm');
+        const usernameField = document.getElementById('usernameField');
+        const passwordField = document.getElementById('passwordField');
+        const form = document.getElementById('myForm'); // Add this line
     
         form.addEventListener('submit', function(event) {
             event.preventDefault(); // Prevent the form from being submitted normally
@@ -111,7 +113,7 @@
                 console.error('Network error:', error);
             });
         });
-    </script>
+    </script>    
 
 <style>
     /* Discord-based CSS */
