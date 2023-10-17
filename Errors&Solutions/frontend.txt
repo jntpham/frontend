@@ -1,0 +1,7 @@
+Some errors that we occured were:
+-3d Game
+    - Aframe and Js Rendering: At first both boxes were moving together even though one was set to be stationary. This is because when the tick was cheking the moving bozes location, in the collision detection script it kept reinitializing the position of the stationary box. This was fized by creating the stationary box first and changing the way the collision detection was checking, to avoid the reset of position.
+-Connect 4
+    - The connect 4 works, however it doesn't work correctly when integrated with flask. To fix this
+- Chat 
+    -
