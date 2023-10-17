@@ -83,35 +83,34 @@
 
     <script>
         const form = document.getElementById('myForm');
-
+    
         form.addEventListener('submit', function(event) {
-        event.preventDefault(); // Prevent the form from being submitted normally
-
-        const apiUrl = "https://whispbackend.duckdns.org/login";
-
-        // Get the form data
-        const formData = new FormData(form);
-
-        // Send a POST request to your backend server
-        fetch(apiUrl, {
-            method: 'POST',
-            body: formData
-        })
-        .then(response => response.json()) // Parse JSON response
-        .then(data => {
-            if (data.success) {
-                // Login was successful, you can redirect or perform any other action
-                console.log('Login successful:', data.message);
-            } else {
-                // Login failed, show an error message or take appropriate action
-                console.error('Login failed:', data.message);
-            }
-        })
-        .catch(error => {
-            console.error('Network error:', error);
+            event.preventDefault(); // Prevent the form from being submitted normally
+    
+            const apiUrl = "https://whispbackend.duckdns.org/login";
+    
+            // Get the form data
+            const formData = new FormData(form);
+    
+            // Send a POST request to your backend server
+            fetch(apiUrl, {
+                method: 'POST',
+                body: formData
+            })
+            .then(response => response.json()) // Parse JSON response
+            .then(data => {
+                if (data.success) {
+                    // Login was successful, you can redirect or perform any other action
+                    console.log('Login successful:', data.message);
+                } else {
+                    // Login failed, show an error message or take appropriate action
+                    console.error('Login failed:', data.message);
+                }
+            })
+            .catch(error => {
+                console.error('Network error:', error);
+            });
         });
-    });
-
     </script>
 
 <style>
