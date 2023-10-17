@@ -85,8 +85,8 @@
         document.getElementById("send-button").addEventListener("click", sendMessage);
 
         // Add an event listener to the "Get Message" button
-        var t=setInterval(getMessage,1);
-        // document.getElementById("get-button").addEventListener("click", getMessage);
+        // var t=setInterval(getMessage,1);
+        document.getElementById("get-button").addEventListener("click", getMessage);
 
         // Fetch a message from the backend when the page loads
         window.onload = getMessage;
