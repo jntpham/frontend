@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <style>
+        /* Add animation to the form elements */
+        .form-group {
+            transition: all 0.3s;
+        }
+
+        .form-group:hover {
+            transform: scale(1.02);
+        }
+
+        .form-control {
+            transition: border-color 0.3s;
+        }
+
+        .form-control.is-invalid {
+            border-color: #ff0000;
+            animation: shake 0.3s;
+        }
+
+        @keyframes shake {
+            0% {
+                transform: translateX(0);
+            }
+            25% {
+                transform: translateX(-5px);
+            }
+            50% {
+                transform: translateX(5px);
+            }
+            75% {
+                transform: translateX(-5px);
+            }
+            100% {
+                transform: translateX(0);
+            }
+        }
+
+        /* Add animation to the submit button */
+        .btn-outline-info {
+            transition: background-color 0.3s, color 0.3s;
+        }
+
+        .btn-outline-info:hover {
+            background-color: #17a2b8;
+            color: #fff;
+        }
+    </style>
+</head>
+<body>
+    <form method="POST" action="" style="border: none;">
+        <fieldset class="form-group" style="border: none;">
+            <div class="text-center">
+                <img class="form-group" width="200" height="200" src="https://cdn.discordapp.com/attachments/909947635715153952/1159715288594518016/image-removebg-preview.png?ex=65320807&is=651f9307&hm=7e5c7faa637bf72b94c41a70a23ca13ab65531bd9cb90d7604379ac76f6560b1" style="border: none;">
+            </div>
+            <h1>Welcome back to Whisp</h1>
+            <div class="form-group" style="border: none;">
+                <input type="text" class="form-control form-control-lg" name="username" placeholder="Username" style="border: none;">
+                <div class="invalid-feedback">
+                    <!-- Error messages for username can be added here -->
+                </div>
+            </div>
+            <div class="form-group" style="border: none;">
+                <input type="password" class="form-control form-control-lg" name="password" placeholder="Password" style="border: none;">
+                <div class="invalid-feedback">
+                    <!-- Error messages for password can be added here -->
+                </div>
+            </div>
+            <div class="form-group" style="border: none;">
+                <input type="checkbox" class="form-check-input" name="remember">
+                <label class="form-check-label">Remember Me</label>
+            </div>
+        </fieldset>
+        <br>
+        <div class="form-group" style="border: none;">
+            <button type="submit" class="btn btn-outline-info" style="border: none;">Submit</button>
+        </div>
+        <br>
+        <a class="form-group" href="/register">Signup</a>
+    </form>
+</body>
+</html>
+
