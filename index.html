@@ -13,7 +13,7 @@
         xhttp.open("GET", "navbar.html", true);
         xhttp.send();
     </script>
-    <input name="text" type="text" id="message" placeholder="Type your message...">
+    <input name="text" type="text" id="message" placeholder="Type your message..." value="">
     <button id="send-button">Send Message</button>
     <button id="get-button">Get Message</button>
     <p id="response"></p>
@@ -44,7 +44,7 @@
                 return response.json();
             })
             .then(data => {
-                document.getElementById("response").textContent = "Response: " + JSON.stringify(data.message);
+                // document.getElementById("response").textContent = "Response: " + JSON.stringify(data.message);
             })
             .catch(error => {
                 document.getElementById("response").textContent = "Error: " + error;
@@ -52,7 +52,8 @@
         }
 
         // Function to send a GET request to fetch the message
-        function getMessage() {
+// Function to send a GET request to fetch the message
+function getMessage() {
             const apiUrl = "https://whispbackend.duckdns.org/messageDB";
             // const apiUrl = "http://127.0.0.1:5001/messageDB"
 
@@ -67,7 +68,7 @@
                 return response.json();
             })
             .then(data => {
-                document.getElementById("message").value = data.message;
+                // document.getElementById("response").value = data.message;
                 data = JSON.stringify(data);
                 data = JSON.parse(data);
                 var tempstring = ""
@@ -89,7 +90,8 @@
         document.getElementById("get-button").addEventListener("click", getMessage);
 
         // Fetch a message from the backend when the page loads
-        window.onload = getMessage;
+        // window.onload = getMessage;
+        setInterval(getMessage, 100)
     </script>
 </body>
 </html>
