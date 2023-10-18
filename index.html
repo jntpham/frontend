@@ -14,8 +14,8 @@
         xhttp.send();
     </script>
     <input name="text" type="text" id="message" placeholder="Type your message..." value="">
-    <button id="send-button">Send Message</button>
-    <button id="get-button">Get Message</button>
+    <!-- <button id="send-button">Send Message</button> -->
+    <!-- <button id="get-button">Get Message</button> -->
     <p id="response"></p>
 
     <script>
@@ -83,12 +83,18 @@ function getMessage() {
         }
 
         // Add an event listener to the "Send Message" button
-        document.getElementById("send-button").addEventListener("click", sendMessage);
+        // document.getElementById("send-button").addEventListener("click", sendMessage);
 
         // Add an event listener to the "Get Message" button
         // var t=setInterval(getMessage,1);
-        document.getElementById("get-button").addEventListener("click", getMessage);
-
+        // document.getElementById("get-button").addEventListener("click", getMessage);
+        document.getElementById("message").addEventListener("keydown", function(event) {
+        if (event.key === "Enter") {
+            sendMessage(); // Call the sendMessage function when Enter is pressed
+        }
+    });
+        const autoFocusInput = document.getElementById("message");
+        autoFocusInput.focus();
         // Fetch a message from the backend when the page loads
         // window.onload = getMessage;
         setInterval(getMessage, 100)
