@@ -4,14 +4,22 @@
   <script src="https://unpkg.com/aframe-environment-component/dist/aframe-environment-component.min.js"></script>
 </head>
 <body>
-<embed src="https://www.youtube.com/watch?v=PzRI40HmRt8" hidden = "true" autostart = "true" loop = "true">
+<embed src="https://www.youtube.com/watch?v=PzRI40HmRt8" hidden="true" autostart="true" loop="true">
+  <!-- Scene -->
   <a-scene>
     <a-entity environment="preset: dream;"></a-entity>
+    <!-- Moving Box -->
     <a-box src="https://i.imgur.com/mYmmbrp.jpg" id="movableBox" position="0 1 0" width="1" height="1" depth="1" color="red" wasd-controls></a-box>
-
+    <!-- Stationary Box -->
     <a-box id="stationaryBox" position="3 1 0" width="1" height="1" depth="1" color="green"></a-box>
-
+    <!-- Camera -->
     <a-entity camera look-controls position="0 1.6 5"></a-entity>
+    <!-- Score Display -->
+    <a-entity
+      id="scoreDisplay"
+      position="1.5 2.5 -5" 
+      text="value: Score: 0; color: white; font: exo2bold; align: right; width: 2">
+    </a-entity>
   </a-scene>
 
   <script>
@@ -19,21 +27,34 @@
       init: function () {
         this.movableBox = document.getElementById('movableBox');
         this.stationaryBox = document.getElementById('stationaryBox');
+        this.scoreDisplay = document.getElementById('scoreDisplay');
+        this.score = 0;
+        this.updateScoreDisplay();
       },
 
       tick: function () {
         var movablePosition = this.movableBox.getAttribute('position');
         var stationaryPosition = this.stationaryBox.getAttribute('position');
 
+        // Check for collision
         if (
           movablePosition.x < stationaryPosition.x + 0.5 &&
           movablePosition.x > stationaryPosition.x - 0.5 &&
           movablePosition.z < stationaryPosition.z + 0.5 &&
           movablePosition.z > stationaryPosition.z - 0.5
         ) {
+          this.score++;
+          this.updateScoreDisplay();
+          if (score = 11){
           alert('You win!');
+          // Reset the position of the movable box
           this.movableBox.setAttribute('position', '0 1 0');
+          }
         }
+      },
+
+      updateScoreDisplay: function () {
+        this.scoreDisplay.setAttribute('text', 'value', 'Score: ' + this.score);
       }
     });
   </script>
