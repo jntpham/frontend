@@ -13,9 +13,9 @@
         xhttp.open("GET", "navbar.html", true);
         xhttp.send();
     </script>
-    <input name="text" type="text" id="message" placeholder="Type your message...">
-    <button id="send-button">Send Message</button>
-    <button id="get-button">Get Message</button>
+    <input name="text" type="text" id="message" placeholder="Type your message..." value="">
+    <!-- <button id="send-button">Send Message</button> -->
+    <!-- <button id="get-button">Get Message</button> -->
     <p id="response"></p>
 
     <script>
@@ -44,7 +44,7 @@
                 return response.json();
             })
             .then(data => {
-                document.getElementById("response").textContent = "Response: " + JSON.stringify(data.message);
+                // document.getElementById("response").textContent = "Response: " + JSON.stringify(data.message);
             })
             .catch(error => {
                 document.getElementById("response").textContent = "Error: " + error;
@@ -52,8 +52,10 @@
         }
 
         // Function to send a GET request to fetch the message
-        function getMessage() {
+// Function to send a GET request to fetch the message
+function getMessage() {
             const apiUrl = "https://whispbackend.duckdns.org/messageDB";
+            // const apiUrl = "http://127.0.0.1:5001/messageDB"
 
             // Perform a GET request to fetch the message
             fetch(apiUrl, {
@@ -66,8 +68,14 @@
                 return response.json();
             })
             .then(data => {
-                document.getElementById("message").value = data.message;
-                document.getElementById("response").textContent = "Response: " + data.message;
+                // document.getElementById("response").value = data.message;
+                data = JSON.stringify(data);
+                data = JSON.parse(data);
+                var tempstring = ""
+                for (let i in data){
+                    tempstring += data[i] + "<br>";
+                }
+                document.getElementById("response").innerHTML = tempstring;
             })
             .catch(error => {
                 document.getElementById("response").textContent = "Error: " + error;
@@ -75,13 +83,21 @@
         }
 
         // Add an event listener to the "Send Message" button
-        document.getElementById("send-button").addEventListener("click", sendMessage);
+        // document.getElementById("send-button").addEventListener("click", sendMessage);
 
         // Add an event listener to the "Get Message" button
-        document.getElementById("get-button").addEventListener("click", getMessage);
-
+        // var t=setInterval(getMessage,1);
+        // document.getElementById("get-button").addEventListener("click", getMessage);
+        document.getElementById("message").addEventListener("keydown", function(event) {
+        if (event.key === "Enter") {
+            sendMessage(); // Call the sendMessage function when Enter is pressed
+        }
+    });
+        const autoFocusInput = document.getElementById("message");
+        autoFocusInput.focus();
         // Fetch a message from the backend when the page loads
-        window.onload = getMessage;
+        // window.onload = getMessage;
+        setInterval(getMessage, 100)
     </script>
 </body>
 </html>
