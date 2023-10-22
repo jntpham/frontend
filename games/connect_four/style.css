@@ -1,0 +1,21 @@
+#game-board {
+    display: grid;
+    grid-template-columns: repeat(7, 60px);
+    grid-template-rows: repeat(6, 60px);
+}
+
+.cell {
+    width: 60px;
+    height: 60px;
+    border: 2px solid black;
+    border-radius: 50%;
+}
+
+/* Define classes for player colors */
+.player-1 {
+    background-color: red;
+}
+
+.player-2 {
+    background-color: yellow;
+}
