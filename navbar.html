@@ -1,5 +1,6 @@
 <html>
 <head>
+    <base id="base" href="/frontend/" />
     <style>
         body {
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
@@ -77,14 +78,19 @@
         <div class="dropdown">
             <button class="dropbtn">Games</button>
             <div class="dropdown-content">
-                <a href="games/chess/chess.html">Chess</a>
-                <a href="games/connect_four/templates/index.html">Connect 4</a>
+                <a href="/games/chess/chess.html">Chess</a>
+                <a href="/games/connect_four/templates/index.html">Connect 4</a>
                 <a href="#other">Other</a>
             </div>
         </div>
-        <a href="chat.html">Chat</a>
+        <a href="/chat.html">Chat</a>
         <a href="#more">Other</a>
         <img src="images/image-removebg-preview.png" style="width:4%; height:2%" class="center">
     </div>
+    <script>
+        if (window.location.hostname.endsWith('.github.io')) {
+            document.getElementById('base').href = `/${window.location.pathname.split('/')[1]}/`;
+        }
+    </script>
 </body>
 </html>
