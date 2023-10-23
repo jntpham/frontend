@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <style>
+        table {
+            width: 100%;
+        }
+        th, td {
+            border: 1px solid black;
+            padding: 8px;
+            text-align: left;
+            color: lightgray;
+            background-color: #424549;
+        }
+        th {
+            background-color: #36393e;
+        }
+        .leaderboard-container {
+            width: 96%;
+            margin: 2%;
+            max-height: 400px; /* Set the maximum height to trigger the scrollbar */
+            overflow-y: scroll; /* Enable vertical scrollbar */
+        }
+    </style>
+    <!-- <base href="frontend/"> -->
+</head>
+<body>
+    <div id="navbar-container"></div>
+    <script>
+        const navbarContainer = document.getElementById("navbar-container");
+        const xhttp = new XMLHttpRequest();
+        xhttp.onreadystatechange = function() {
+            if (this.readyState == 4 && this.status == 200) {
+                navbarContainer.innerHTML = this.responseText;
+            }
+        };
+        xhttp.open("GET", "/navbar.html", true);
+        xhttp.send();
+    </script>
+    <h1>Chess Leaderboard</h1>
+    <div class="leaderboard-container">
+        <table>
+            <tr>
+                <th>Rank</th>
+                <th>Name</th>
+                <th>Score</th>
+            </tr>
+            <tr>
+                <td>1</td>
+                <td>Player 1</td>
+                <td>1000</td>
+            </tr>
+            <tr>
+                <td>1</td>
+                <td>Player 1</td>
+                <td>1000</td>
+            </tr>
+            <tr>
+                <td>1</td>
+                <td>Player 1</td>
+                <td>1000</td>
+            </tr>
+            <tr>
+                <td>1</td>
+                <td>Player 1</td>
+                <td>1000</td>
+            </tr>
+            <tr>
+                <td>1</td>
+                <td>Player 1</td>
+                <td>1000</td>
+            </tr>
+            <tr>
+                <td>1</td>
+                <td>Player 1</td>
+                <td>1000</td>
+            </tr>
+            <tr>
+                <td>1</td>
+                <td>Player 1</td>
+                <td>1000</td>
+            </tr>
+            <tr>
+                <td>1</td>
+                <td>Player 1</td>
+                <td>1000</td>
+            </tr>
+            <tr>
+                <td>1</td>
+                <td>Player 1</td>
+                <td>1000</td>
+            </tr>
+            <tr>
+                <td>1</td>
+                <td>Player 1</td>
+                <td>1000</td>
+            </tr>
+        </table>
+    </div>
+</body>
+</html>

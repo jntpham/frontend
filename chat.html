@@ -50,6 +50,7 @@
             cursor: pointer;
         }
     </style>
+    <!-- <base href="frontend/"> -->
 </head>
 
 <body>
@@ -106,6 +107,7 @@
             const data = {
                 message: getCurrentTime() + ' -> ' + message
             };
+            document.getElementById("message").value = '';
 
             // Perform the POST request to store the message
             fetch(apiUrl, {

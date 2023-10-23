@@ -70,6 +70,7 @@
             width: 50%;
         }
     </style>
+    <base href="/frontend">
 </head>
 <body>
     <div class="navbar">
@@ -77,14 +78,20 @@
         <div class="dropdown">
             <button class="dropbtn">Games</button>
             <div class="dropdown-content">
-                <a href="games/chess/chess.html">Chess</a>
-                <a href="games/connect_four/templates/index.html">Connect 4</a>
-                <a href="#other">Other</a>
+                <a href="/games/chess/chess.html">Chess</a>
+                <a href="/games/connect_four/index.html">Connect 4</a>
+                <a href="/games/3DGame/aframe3d.html">3D Game</a>
             </div>
         </div>
-        <a href="chat.html">Chat</a>
-        <a href="#more">Other</a>
-        <img src="images/image-removebg-preview.png" style="width:4%; height:2%" class="center">
+        <a href="/chat.html">Chat</a>
+        <div class="dropdown">
+            <button class="dropbtn">Leaderboards</button>
+            <div class="dropdown-content">
+                <a href="/chessleader.html">Chess Leaderboard</a>
+                <a href="/connectleader.html">Connect 4 Leaderboard</a>
+            </div>
+        </div>
+        <img src="/images/image-removebg-preview.png" style="width:4%; height:2%" class="center">
     </div>
-</body>
+    </body>
 </html>
