@@ -22,6 +22,7 @@
             overflow-y: scroll; /* Enable vertical scrollbar */
         }
     </style>
+    <!-- <base href="frontend/"> -->
 </head>
 <body>
     <div id="navbar-container"></div>
@@ -33,7 +34,7 @@
                 navbarContainer.innerHTML = this.responseText;
             }
         };
-        xhttp.open("GET", "/frontend/navbar.html", true);
+        xhttp.open("GET", "/navbar.html", true);
         xhttp.send();
     </script>
     <h1>Connect 4 Leaderboard</h1>

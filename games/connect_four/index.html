@@ -10,6 +10,7 @@
     />
     <!-- Stylesheet -->
     <link rel="stylesheet" href="style.css" />
+    <!-- <base href="frontend/">  -->
 </head>
 <body>
     <div id="navbar-container"></div>
@@ -21,7 +22,7 @@
                 navbarContainer.innerHTML = this.responseText;
             }
         };
-        xhttp.open("GET", "/frontend/navbar.html", true);
+        xhttp.open("GET", "navbar.html", true);
         xhttp.send();
     </script>
     <div class="wrapper">
