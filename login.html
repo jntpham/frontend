@@ -89,16 +89,6 @@
             const form = document.getElementById('myForm');
 
             try {
-                // Fetch the CSRF token from the server
-                const csrfResponse = await fetch("https://whispbackend.duckdns.org/gen_csrf");
-
-                if (!csrfResponse.ok) {
-                    throw new Error('Network response for CSRF token was not ok');
-                }
-
-                const csrfData = await csrfResponse.json();
-                const csrfToken = csrfData.csrf_token;
-
                 // Set the CSRF token in the hidden input field
                 // document.getElementById('csrfTokenField').value = csrfToken;
 
@@ -114,12 +104,7 @@
                     body: formData,
                     mode: 'cors',
                     xsrfHeaderName: "X-CSRFToken",
-                    headers: {
-                        "X-CSRFToken": csrfToken
-                    }
                 });
-
-                console.log("SLDFJSLDKFJSDL", csrfToken)
 
                 if (!loginResponse.ok) {
                     throw new Error('Login request was not successful');
