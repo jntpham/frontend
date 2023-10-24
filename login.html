@@ -103,7 +103,8 @@
             // Send a POST request to your backend server
             fetch(apiUrl, {
                 method: 'POST',
-                body: formData
+                body: formData,
+                mode: "cors"
             })
             .then(response => response.json()) // Parse JSON response
             .then(data => {
