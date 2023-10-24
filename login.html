@@ -74,6 +74,7 @@
             </div>
         </fieldset>
         <br>
+        <!-- <input type="hidden" id="csrfTokenField" name="csrf_token" value=""> -->
         <div class="form-group" style="border: none;">
             <button type="submit" class="btn btn-outline-info" style="border: none;">Submit</button>
         </div>
@@ -95,25 +96,30 @@
                     throw new Error('Network response for CSRF token was not ok');
                 }
 
-                console.log(csrfResponse)
                 const csrfData = await csrfResponse.json();
                 const csrfToken = csrfData.csrf_token;
-                console.log(csrfToken)
-                
+
+                // Set the CSRF token in the hidden input field
+                // document.getElementById('csrfTokenField').value = csrfToken;
+
                 const apiUrl = "http://127.0.0.1:5001/login";
 
                 // Get the form data
                 const formData = new FormData(form);
-
-                // Make sure the form actually has the csrf token
-                formData.append("csrf_token", csrfToken);
+                console.log(form)
 
                 // Send a POST request to your backend server
                 const loginResponse = await fetch(apiUrl, {
                     method: 'POST',
                     body: formData,
-                    mode: 'cors'
+                    mode: 'cors',
+                    xsrfHeaderName: "X-CSRFToken",
+                    headers: {
+                        "X-CSRFToken": csrfToken
+                    }
                 });
+
+                console.log("SLDFJSLDKFJSDL", csrfToken)
 
                 if (!loginResponse.ok) {
                     throw new Error('Login request was not successful');
@@ -133,11 +139,12 @@
             }
         }
 
-    const form = document.getElementById('myForm');
-    form.addEventListener('submit', function(event) {
-        event.preventDefault();
-        submitForm();
-    });
+        const form = document.getElementById('myForm');
+        form.addEventListener('submit', function(event) {
+            event.preventDefault();
+            submitForm();
+        });
+
 
     </script>
      
