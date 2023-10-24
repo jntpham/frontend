@@ -86,46 +86,59 @@
             const username = document.getElementById('usernameField');
             const password = document.getElementById('passwordField');
             const form = document.getElementById('myForm');
-    
-            // Fetch the CSRF token from the server
-            const csrfToken = await fetch("http://127.0.0.1:5001/gen_csrf") // Replace with your CSRF token endpoint
-                .then(response => response.json())
-                .then(data => data.csrfToken);
-    
-            const apiUrl = "http://127.0.0.1:5001/login";
-    
-            // Get the form data
-            const formData = new FormData(form);
-    
-            // Make sure the form actually has the csrf token
-            formData.append("csrf_token", csrfToken);
-    
-            // Send a POST request to your backend server
-            fetch(apiUrl, {
-                method: 'POST',
-                body: formData,
-                mode: "cors"
-            })
-            .then(response => response.json()) // Parse JSON response
-            .then(data => {
-                if (data.success) {
+
+            try {
+                // Fetch the CSRF token from the server
+                const csrfResponse = await fetch("http://127.0.0.1:5001/gen_csrf");
+
+                if (!csrfResponse.ok) {
+                    throw new Error('Network response for CSRF token was not ok');
+                }
+
+                console.log(csrfResponse)
+                const csrfData = await csrfResponse.json();
+                const csrfToken = csrfData.csrf_token;
+                console.log(csrfToken)
+                
+                const apiUrl = "http://127.0.0.1:5001/login";
+
+                // Get the form data
+                const formData = new FormData(form);
+
+                // Make sure the form actually has the csrf token
+                formData.append("csrf_token", csrfToken);
+
+                // Send a POST request to your backend server
+                const loginResponse = await fetch(apiUrl, {
+                    method: 'POST',
+                    body: formData,
+                    mode: 'cors'
+                });
+
+                if (!loginResponse.ok) {
+                    throw new Error('Login request was not successful');
+                }
+
+                const loginData = await loginResponse.json();
+
+                if (loginData.success) {
                     // Login was successful, you can redirect or perform any other action
-                    console.log('Login successful:', data.message);
+                    console.log('Login successful:', loginData.message);
                 } else {
                     // Login failed, show an error message or take appropriate action
-                    console.error('Login failed:', data.message);
+                    console.error('Login failed:', loginData.message);
                 }
-            })
-            .catch(error => {
-                console.error('Network error:', error);
-            });
+            } catch (error) {
+                console.error('Error:', error);
+            }
         }
-    
-        const form = document.getElementById('myForm');
-        form.addEventListener('submit', function(event) {
-            event.preventDefault();
-            submitForm();
-        });
+
+    const form = document.getElementById('myForm');
+    form.addEventListener('submit', function(event) {
+        event.preventDefault();
+        submitForm();
+    });
+
     </script>
      
 
