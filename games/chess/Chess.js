@@ -156,7 +156,6 @@ document.querySelectorAll('.box').forEach(item => {
         // Function to display the available paths for all pieces
 
         function whosTurn(toggle) {
-
             // PAWN
 
             if (item.innerText == `${toggle}pawn`) {
@@ -577,10 +576,6 @@ document.querySelectorAll('.box').forEach(item => {
 
 })
 
-
-
-
-
 // Moving the element
 document.querySelectorAll('.box').forEach(item => {
 
@@ -689,12 +684,25 @@ document.querySelectorAll('.box').forEach(item => {
         }
 
     })
-
+    function getBoard()
+    {
+        const board = new Array(8);
+        for (let i = 0; i < 8; i++) 
+        {
+            board[i] = new Array(8).fill(null);
+        }
+        for(let i = 0; i < board.length; i ++)
+        {
+            for(let k = 0; k < board[i].length; k++)
+            {
+                var iden = "b" + (i+1).toString() + "0" + (k+1).toString();
+                // board[i][k] = 
+            }
+        }
+        return board;
+    } 
+    console.log(getBoard());
 })
-
-
-
-
 
 
 // Prvents from selecting multiple elements
