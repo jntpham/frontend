@@ -575,6 +575,42 @@ document.querySelectorAll('.box').forEach(item => {
     })
 
 })
+function getBoard()
+{
+    const board = new Array(8);
+    for (let i = 0; i < 8; i++) 
+    {
+        board[i] = new Array(8).fill(null);
+    }
+    for(let i = 0; i < board.length; i ++)
+    {
+        for(let k = 0; k < board[i].length; k++)
+        {
+            var iden = "b" + (i+1).toString() + "0" + (k+1).toString();
+            board[7-i][k] = document.getElementById(iden).innerText;
+        }
+    }
+    return board;
+} 
+function updateBoard() {
+    const currentBoard = getBoard();
+    console.log(currentBoard);
+    fetch('/update_board', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ board: board }),
+    })
+    .then(response => response.json())
+    .then(data => {
+        console.log(data.message); // You can handle the response from Flask here
+    })
+    .catch(error => {
+        console.error('Error:', error);
+    });
+}
+const updateInterval = setInterval(updateBoard, 100);
 
 // Moving the element
 document.querySelectorAll('.box').forEach(item => {
@@ -680,30 +716,12 @@ document.querySelectorAll('.box').forEach(item => {
 
                 })
             })
-
         }
-
+        
     })
-    function getBoard()
-    {
-        const board = new Array(8);
-        for (let i = 0; i < 8; i++) 
-        {
-            board[i] = new Array(8).fill(null);
-        }
-        for(let i = 0; i < board.length; i ++)
-        {
-            for(let k = 0; k < board[i].length; k++)
-            {
-                var iden = "b" + (i+1).toString() + "0" + (k+1).toString();
-                // board[i][k] = 
-            }
-        }
-        return board;
-    } 
-    console.log(getBoard());
+    
 })
-
+    
 
 // Prvents from selecting multiple elements
 z = 0
