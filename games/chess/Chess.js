@@ -17,6 +17,7 @@ function insertImage() {
             }
         }
     })
+    console.log(updateBoard())
 }
 insertImage()
 
@@ -593,24 +594,33 @@ function getBoard()
     return board;
 } 
 function updateBoard() {
-    const currentBoard = getBoard();
-    console.log(currentBoard);
-    fetch('/update_board', {
+    const board = getBoard();
+    const apiurl = "https://whispbackend.duckdns.org/chessboardDB"
+      // Create a JSON object containing the board data
+    const boardData = { board };
+    console.log(boardData);
+    fetch(apiurl, {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json',
         },
-        body: JSON.stringify({ board: board }),
+        body: JSON.stringify(boardData),
     })
-    .then(response => response.json())
-    .then(data => {
-        console.log(data.message); // You can handle the response from Flask here
-    })
-    .catch(error => {
-        console.error('Error:', error);
-    });
-}
-const updateInterval = setInterval(updateBoard, 100);
+        .then(response => {
+            if (response.ok) {
+                return response.text(); // You can change this to JSON or another format as needed
+            } else {
+                throw new Error('Failed to send board data');
+            }
+        })
+        .then(responseData => {
+        // Handle the response from the Python script if needed
+            console.log('response:', responseData);
+        })
+        .catch(error => {
+            console.error('Error:', error);
+        });
+    }
 
 // Moving the element
 document.querySelectorAll('.box').forEach(item => {
