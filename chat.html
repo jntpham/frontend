@@ -62,8 +62,8 @@
 </head>
 
 <body>
-    <div id="navbar-container"></div>
-    <script>
+<!--     <div id="navbar-container"></div> -->
+<!--     <script>
         const navbarContainer = document.getElementById("navbar-container");
         const xhttp = new XMLHttpRequest();
         xhttp.onreadystatechange = function() {
@@ -73,7 +73,7 @@
         };
         xhttp.open("GET", "/frontend/navbar.html", true);
         xhttp.send();
-    </script>
+    </script> -->
 
     <div id="chat-container">
         <p id = "response"></p>
@@ -82,6 +82,8 @@
             <input name="text" type="text" id="message" placeholder="Type your message..." value="">
         </div>
     </div>
+
+    <iframe src="/frontend/navbar.html" style="width: 150px; height: 100%; position: fixed; top: 0; left: 0; border: none;"></iframe>
     
 
     <script>
