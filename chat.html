@@ -3,14 +3,21 @@
 <head> 
     <title>Whisp Chat</title>
     <style>
+    html, body {
+        height: 100%;
+        margin: 0;
+        padding: 0;
+    }
+    p {
+        color: white;
+    }
+
     body {
         font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
         margin: 0;
         padding: 0;
         background-color: #424549;
-        color: white;
-    }
-
+    } 
     #chat-container {
         display: flex;
         flex-direction: column;
@@ -21,7 +28,6 @@
         padding: 10px;
         background-color: #282b30;
     }
-
     #messages {
         flex-grow: 1;
     }
