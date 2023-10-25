@@ -89,24 +89,13 @@
             const form = document.getElementById('myForm');
 
             try {
-                // Fetch the CSRF token from the server
-                const csrfResponse = await fetch("https://whispbackend.duckdns.org/gen_csrf");
+    
 
-                if (!csrfResponse.ok) {
-                    throw new Error('Network response for CSRF token was not ok');
-                }
-
-                const csrfData = await csrfResponse.json();
-                const csrfToken = csrfData.csrf_token;
-
-                // Set the CSRF token in the hidden input field
-                document.getElementById('csrfTokenField').value = csrfToken;
 
                 const apiUrl = "https://whispbackend.duckdns.org/login";
 
                 // Get the form data
                 const formData = new FormData(form);
-                formData.append("csrf_token", csrfToken);
                 console.log(form)
 
                 // Send a POST request to your backend server
@@ -114,9 +103,6 @@
                     method: 'POST',
                     body: formData,
                     mode: 'cors',
-                    headers: {
-                        "X-CSRFToken": csrfToken
-                    }
                 });
 
                 if (!loginResponse.ok) {
