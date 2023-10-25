@@ -3,53 +3,55 @@
 <head> 
     <title>Whisp Chat</title>
     <style>
-        p {
-            color: white;
-        }
+    body {
+        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        margin: 0;
+        padding: 0;
+        background-color: #424549;
+        color: white;
+    }
 
-        body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            margin: 0;
-            padding: 0;
-            background-color: #424549;
-        } 
-        #chat-container {
-            display: flex;
-            flex-direction: column;
-            justify-content: flex-end;
-            height: 500px; /* Adjust the height as needed */
-            border: 1px solid #ccc;
-            overflow-y: scroll;
-            padding: 10px;
-            background-color: #282b30;
-        }
+    #chat-container {
+        display: flex;
+        flex-direction: column;
+        justify-content: flex-end;
+        height: 500px; /* Adjust the height as needed */
+        border: 1px solid #ccc;
+        overflow-y: scroll;
+        padding: 10px;
+        background-color: #282b30;
+    }
 
-        #messages {
-            flex-grow: 1;
-        }
+    #messages {
+        flex-grow: 1;
+    }
 
-        #input-container {
-            display: flex;
-            background-color: #282b30;
-            padding: 10px;
-        }
+    #input-container {
+        display: flex;
+        background-color: #282b30;
+        padding: 10px;
+    }
 
-        #message{
-            flex-grow: 1;
-            padding: 5px;
-            font-size: 16px;
-            background-color: #36393e;
-            color: white;
-        }
+    #message {
+        border-radius: 15px;
+        flex-grow: 1;
+        padding: 5px;
+        font-size: 16px;
+        height: 100%;
+        background-color: #36393e;
+        color: white;
+        border: none;
+    }
 
-        #send-button {
-            background-color: #7289da;
-            color: #fff;
-            border: none;
-            padding: 10px 20px;
-            cursor: pointer;
-        }
-    </style>
+    #send-button {
+        background-color: #7289da;
+        color: #fff;
+        border: none;
+        padding: 10px 20ok px;
+        cursor: pointer;
+    }
+</style>
+
     <!-- <base href="frontend/"> -->
 </head>
 
@@ -72,7 +74,6 @@
         <div id="messages"></div>
         <div id="input-container">
             <input name="text" type="text" id="message" placeholder="Type your message..." value="">
-            <button id="send-button">Send</button>
         </div>
     </div>
     
