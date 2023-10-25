@@ -74,6 +74,7 @@
             </div>
         </fieldset>
         <br>
+        <input type="hidden" id="csrfTokenField" name="csrf_token" value="">
         <div class="form-group" style="border: none;">
             <button type="submit" class="btn btn-outline-info" style="border: none;">Submit</button>
         </div>
@@ -82,38 +83,69 @@
     </form>
 
     <script>
-        const usernameData = document.getElementById('usernameField');
-        const passwordData = document.getElementById('passwordField');
-        const form = document.getElementById('myForm'); // Add this line
-    
-        form.addEventListener('submit', function(event) {
-            event.preventDefault(); // Prevent the form from being submitted normally
-    
-            const apiUrl = "https://whispbackend.duckdns.org/login";
-    
-            // Get the form data
-            const formData = new FormData(form);
-    
-            // Send a POST request to your backend server
-            fetch(apiUrl, {
-                method: 'POST',
-                body: formData,
-            })
-            .then(response => response.json()) // Parse JSON response
-            .then(data => {
-                if (data.success) {
+        async function submitForm() {
+            const username = document.getElementById('usernameField');
+            const password = document.getElementById('passwordField');
+            const form = document.getElementById('myForm');
+
+            try {
+                // Fetch the CSRF token from the server
+                const csrfResponse = await fetch("https://whispbackend.duckdns.org/gen_csrf");
+
+                if (!csrfResponse.ok) {
+                    throw new Error('Network response for CSRF token was not ok');
+                }
+
+                const csrfData = await csrfResponse.json();
+                const csrfToken = csrfData.csrf_token;
+
+                // Set the CSRF token in the hidden input field
+                document.getElementById('csrfTokenField').value = csrfToken;
+
+                const apiUrl = "https://whispbackend.duckdns.org/login";
+
+                // Get the form data
+                const formData = new FormData(form);
+                formData.append("csrf_token", csrfToken);
+                console.log(form)
+
+                // Send a POST request to your backend server
+                const loginResponse = await fetch(apiUrl, {
+                    method: 'POST',
+                    body: formData,
+                    mode: 'cors',
+                    headers: {
+                        "X-CSRFToken": csrfToken
+                    }
+                });
+
+                if (!loginResponse.ok) {
+                    throw new Error('Login request was not successful');
+                }
+
+                const loginData = await loginResponse.json();
+
+                if (loginData.success) {
                     // Login was successful, you can redirect or perform any other action
-                    console.log('Login successful:', data.message);
+                    console.log('Login successful:', loginData.message);
                 } else {
                     // Login failed, show an error message or take appropriate action
-                    console.error('Login failed:', data.message);
+                    console.error('Login failed:', loginData.message);
                 }
-            })
-            .catch(error => {
-                console.error('Network error:', error);
-            });
+            } catch (error) {
+                console.error('Error:', error);
+            }
+        }
+
+        const form = document.getElementById('myForm');
+        form.addEventListener('submit', function(event) {
+            event.preventDefault();
+            submitForm();
         });
-    </script>    
+
+
+    </script>
+     
 
 <style>
     /* Discord-based CSS */

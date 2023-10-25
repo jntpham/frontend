@@ -17,6 +17,7 @@ function insertImage() {
             }
         }
     })
+    console.log(updateBoard())
 }
 insertImage()
 
@@ -156,7 +157,6 @@ document.querySelectorAll('.box').forEach(item => {
         // Function to display the available paths for all pieces
 
         function whosTurn(toggle) {
-
             // PAWN
 
             if (item.innerText == `${toggle}pawn`) {
@@ -576,10 +576,51 @@ document.querySelectorAll('.box').forEach(item => {
     })
 
 })
-
-
-
-
+function getBoard()
+{
+    const board = new Array(8);
+    for (let i = 0; i < 8; i++) 
+    {
+        board[i] = new Array(8).fill(null);
+    }
+    for(let i = 0; i < board.length; i ++)
+    {
+        for(let k = 0; k < board[i].length; k++)
+        {
+            var iden = "b" + (i+1).toString() + "0" + (k+1).toString();
+            board[7-i][k] = document.getElementById(iden).innerText;
+        }
+    }
+    return board;
+} 
+function updateBoard() {
+    const board = getBoard();
+    const apiurl = "https://whispbackend.duckdns.org/chessboardDB"
+      // Create a JSON object containing the board data
+    const boardData = { board };
+    console.log(boardData);
+    fetch(apiurl, {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(boardData),
+    })
+        .then(response => {
+            if (response.ok) {
+                return response.text(); // You can change this to JSON or another format as needed
+            } else {
+                throw new Error('Failed to send board data');
+            }
+        })
+        .then(responseData => {
+        // Handle the response from the Python script if needed
+            console.log('response:', responseData);
+        })
+        .catch(error => {
+            console.error('Error:', error);
+        });
+    }
 
 // Moving the element
 document.querySelectorAll('.box').forEach(item => {
@@ -685,17 +726,12 @@ document.querySelectorAll('.box').forEach(item => {
 
                 })
             })
-
         }
-
+        
     })
-
+    
 })
-
-
-
-
-
+    
 
 // Prvents from selecting multiple elements
 z = 0

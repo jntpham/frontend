@@ -1,99 +1,10 @@
-<!DOCTYPE html>
-<html>
-<head> 
-    <title>Whisp Chat</title>
-    <style>
-    html, body {
-        height: 100%;
-        margin: 0;
-        padding: 0;
-    }
-    p {
-        color: white;
-    }
 
-    body {
-        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-        margin: 0;
-        padding: 0;
-        background-color: #424549;
-    } 
-    #chat-container {
-        display: flex;
-        flex-direction: column;
-        justify-content: flex-end;
-        height: 100%; /* Adjust the height as needed */
-        border: 1px solid #ccc;
-        overflow-y: scroll;
-        padding: 10px;
-        background-color: #282b30;
-    }
-    #messages {
-        flex-grow: 1;
-    }
-
-    #input-container {
-        display: flex;
-        background-color: #282b30;
-        padding: 10px;
-    }
-
-    #message {
-        border-radius: 15px;
-        flex-grow: 1;
-        padding: 5px;
-        font-size: 16px;
-        height: 100%;
-        background-color: #36393e;
-        color: white;
-        border: none;
-    }
-
-    #send-button {
-        background-color: #7289da;
-        color: #fff;
-        border: none;
-        padding: 10px 20ok px;
-        cursor: pointer;
-    }
-</style>
-
-    <!-- <base href="frontend/"> -->
-</head>
-
-<body>
-    <iframe src="/frontend/navbar.html"></iframe>
-
-    <div id="chat-container">
-        <p id="response"></p>
-        <div id="messages"></div>
-        <div id="input-container">
-            <input name="text" type="text" id="message" placeholder="Type your message..." value="">
-            <button id="send-button">Send</button>
-        </div>
-    </div>
+<input name="text" type="text" id="message" placeholder="Type your message..." value="">
+    <!-- <button id="send-button">Send Message</button> -->
+    <!-- <button id="get-button">Get Message</button> -->
+    <p id="response"></p>
 
     <script>
-        const sendButton = document.getElementById("send-button");
-
-        // Function to add a new message to the chat
-        function addMessage(message) {
-            const timestamp = getCurrentTime();
-            const messageElement = document.createElement("p");
-            messageElement.textContent = `[${timestamp}] ${message}`;
-            messagesDiv.appendChild(messageElement);
-        }
-
-        function getCurrentTime() {
-            const now = new Date();
-            const hours = now.getHours();
-            const minutes = now.getMinutes().toString().padStart(2, "0");
-            const seconds = now.getSeconds().toString().padStart(2, "0");
-            const ampm = hours >= 12 ? 'PM' : 'AM';
-            const date =  now.getMonth() + "/" + now.getDay() + "/" + now.getFullYear();
-            const formattedHours = hours % 12 || 12;
-            return `${date} at ${formattedHours}:${minutes} ${ampm}`;
-        }
         // Function to send a POST request to the backend to store the message
         function sendMessage() {
             const message = document.getElementById("message").value;
@@ -101,9 +12,8 @@
 
             // Create a data object to send in the POST request
             const data = {
-                message: getCurrentTime() + ' -> ' + message
+                message: message
             };
-            document.getElementById("message").value = '';
 
             // Perform the POST request to store the message
             fetch(apiUrl, {
@@ -147,7 +57,7 @@ function getMessage() {
                 // document.getElementById("response").value = data.message;
                 data = JSON.stringify(data);
                 data = JSON.parse(data);
-                var tempstring = "";
+                var tempstring = ""
                 for (let i in data){
                     tempstring += data[i] + "<br>";
                 }
@@ -168,15 +78,10 @@ function getMessage() {
         if (event.key === "Enter") {
             sendMessage(); // Call the sendMessage function when Enter is pressed
         }
-        sendButton.addEventListener("click", () => {
-            sendMessage();
-        });
     });
         const autoFocusInput = document.getElementById("message");
         autoFocusInput.focus();
         // Fetch a message from the backend when the page loads
         // window.onload = getMessage;
-        setInterval(getMessage, 100);
+        setInterval(getMessage, 100)
     </script>
-</body>
-</html>
