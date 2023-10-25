@@ -17,6 +17,7 @@ function insertImage() {
             }
         }
     })
+    console.log(updateBoard())
 }
 insertImage()
 
@@ -620,7 +621,6 @@ function updateBoard() {
             console.error('Error:', error);
         });
     }
-const updateInterval = setInterval(updateBoard, 100);
 
 // Moving the element
 document.querySelectorAll('.box').forEach(item => {
