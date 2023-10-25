@@ -62,29 +62,16 @@
 </head>
 
 <body>
-<!--     <div id="navbar-container"></div> -->
-<!--     <script>
-        const navbarContainer = document.getElementById("navbar-container");
-        const xhttp = new XMLHttpRequest();
-        xhttp.onreadystatechange = function() {
-            if (this.readyState == 4 && this.status == 200) {
-                navbarContainer.innerHTML = this.responseText;
-            }
-        };
-        xhttp.open("GET", "/frontend/navbar.html", true);
-        xhttp.send();
-    </script> -->
+    <iframe src="/frontend/navbar.html"></iframe>
 
     <div id="chat-container">
-        <p id = "response"></p>
+        <p id="response"></p>
         <div id="messages"></div>
         <div id="input-container">
             <input name="text" type="text" id="message" placeholder="Type your message..." value="">
+            <button id="send-button">Send</button>
         </div>
     </div>
-
-    <iframe src="/frontend/navbar.html" style="width: 150px; height: 100%; position: fixed; top: 0; left: -25px; border: none;"></iframe>
-    
 
     <script>
         const sendButton = document.getElementById("send-button");
