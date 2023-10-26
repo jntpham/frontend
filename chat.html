@@ -87,7 +87,7 @@
             <button id="send-button">Send</button>
         </div>
     </div>
-
+    <button onclick=logout()> Logout </button>
     <script>
         var username = localStorage.getItem("usernameData")
         console.log(username)
@@ -96,7 +96,10 @@
             window.location.replace("./login.html")
         }
         const sendButton = document.getElementById("send-button");
-
+        function logout() { 
+            flag = 0
+            window.location.replace("./login.html")
+        }
         // Function to add a new message to the chat
         function addMessage(message) {
             const timestamp = getCurrentTime();
