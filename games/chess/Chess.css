@@ -1,15 +1,10 @@
-/* * {
-    margin: 0;
-    padding: 0;
-} */
-
-
 body {
     display: grid;
     /* place-items: ; */
     margin-right:auto;
     margin-left:50%;
     overflow-x: hidden;
+    place-items: center;
 }
 
 h1 {

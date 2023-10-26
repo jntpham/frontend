@@ -3,8 +3,13 @@
 <head> 
     <title>Whisp Chat</title>
     <style>
+    #sidebar {
+        width: 20%; /* Adjust the width as needed */
+        background-color: #282b30;
+        padding: 10px;
+    }
     html, body {
-        height: 100%;
+        height: 95%;
         margin: 0;
         padding: 0;
     }
@@ -27,6 +32,7 @@
         overflow-y: scroll;
         padding: 10px;
         background-color: #282b30;
+        width: 100%;
     }
     #messages {
         flex-grow: 1;
@@ -53,16 +59,25 @@
         background-color: #7289da;
         color: #fff;
         border: none;
-        padding: 10px 20ok px;
+        padding: 10px 20px;
         cursor: pointer;
     }
 </style>
-
-    <!-- <base href="frontend/"> -->
 </head>
 
 <body>
-    <iframe src="/frontend/navbar.html"></iframe>
+    <div id="navbar-container"></div>
+    <script>
+        const navbarContainer = document.getElementById("navbar-container");
+        const xhttp = new XMLHttpRequest();
+        xhttp.onreadystatechange = function() {
+            if (this.readyState == 4 && this.status == 200) {
+                navbarContainer.innerHTML = this.responseText;
+            }
+        };
+        xhttp.open("GET", "/frontend/navbar.html", true);
+        xhttp.send();
+    </script>
 
     <div id="chat-container">
         <p id="response"></p>
@@ -72,10 +87,19 @@
             <button id="send-button">Send</button>
         </div>
     </div>
-
+    <button onclick=logout()> Logout </button>
     <script>
+        var username = localStorage.getItem("usernameData")
+        console.log(username)
+        var flag = localStorage.getItem("flagData")
+        if (flag != 1){
+            window.location.replace("./login.html")
+        }
         const sendButton = document.getElementById("send-button");
-
+        function logout() { 
+            flag = 0
+            window.location.replace("./login.html")
+        }
         // Function to add a new message to the chat
         function addMessage(message) {
             const timestamp = getCurrentTime();
@@ -92,16 +116,17 @@
             const ampm = hours >= 12 ? 'PM' : 'AM';
             const date =  now.getMonth() + "/" + now.getDay() + "/" + now.getFullYear();
             const formattedHours = hours % 12 || 12;
-            return `${date} at ${formattedHours}:${minutes} ${ampm}`;
+            return `${date} ${formattedHours}:${minutes} ${ampm}`;
         }
         // Function to send a POST request to the backend to store the message
         function sendMessage() {
             const message = document.getElementById("message").value;
-            const apiUrl = "https://whispbackend.duckdns.org/messageDB";
+            // const apiUrl = "https://whispbackend.duckdns.org/messageDB";
+            const apiUrl = "http://127.0.0.1:5001/messageDB"
 
             // Create a data object to send in the POST request
             const data = {
-                message: getCurrentTime() + ' -> ' + message
+                message: "<p style=font-weight:bold;display:inline>" + username + '</p> &nbsp' + '<p style=color:#808080;display:inline>'+getCurrentTime() + "</p><br>" + "" + '&nbsp -> &nbsp' + message
             };
             document.getElementById("message").value = '';
 
@@ -130,12 +155,12 @@
         // Function to send a GET request to fetch the message
 // Function to send a GET request to fetch the message
 function getMessage() {
-            const apiUrl = "https://whispbackend.duckdns.org/messageDB";
-            // const apiUrl = "http://127.0.0.1:5001/messageDB"
+            // const apiUrl = "https://whispbackend.duckdns.org/messageDB";
+            const apiUrl = "http://127.0.0.1:5001/messageDB"
 
             // Perform a GET request to fetch the message
             fetch(apiUrl, {
-                method: "GET"
+                method: "GET",
             })
             .then(response => {
                 if (!response.ok) {
@@ -179,4 +204,6 @@ function getMessage() {
         setInterval(getMessage, 100);
     </script>
 </body>
+</html>
+
 </html>
