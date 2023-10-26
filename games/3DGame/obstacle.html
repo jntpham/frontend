@@ -70,6 +70,7 @@
         // If the stationary box reaches the position of the movable box without collision
         if (stationaryPosition.z <= 0) {
           alert('You lose!', this.score);
+          var statscore = this.score;
 
           // Reset the game
           this.score = 0;
