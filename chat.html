@@ -9,7 +9,7 @@
         padding: 10px;
     }
     html, body {
-        height: 100%;
+        height: 95%;
         margin: 0;
         padding: 0;
     }
@@ -32,7 +32,7 @@
         overflow-y: scroll;
         padding: 10px;
         background-color: #282b30;
-        width: 80%;
+        width: 100%;
     }
     #messages {
         flex-grow: 1;
@@ -66,7 +66,18 @@
 </head>
 
 <body>
-    <iframe src="/frontend/navbar.html"></iframe>
+    <div id="navbar-container"></div>
+    <script>
+        const navbarContainer = document.getElementById("navbar-container");
+        const xhttp = new XMLHttpRequest();
+        xhttp.onreadystatechange = function() {
+            if (this.readyState == 4 && this.status == 200) {
+                navbarContainer.innerHTML = this.responseText;
+            }
+        };
+        xhttp.open("GET", "/frontend/navbar.html", true);
+        xhttp.send();
+    </script>
 
     <div id="chat-container">
         <p id="response"></p>
