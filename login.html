@@ -84,11 +84,12 @@
 
     <script>
         async function submitForm() {
-            const username = document.getElementById('usernameField');
-            const password = document.getElementById('passwordField');
-            const form = document.getElementById('myForm');
+            var username = document.getElementById('usernameField');
+            var password = document.getElementById('passwordField');
+            var form = document.getElementById('myForm');
 
-            console.log(username, password)
+            
+
 
             try {
                 const apiUrl = "https://whispbackend.duckdns.org/login";
@@ -114,6 +115,14 @@
                 if (loginData.success) {
                     // Login was successful, you can redirect or perform any other action
                     console.log('Login successful:', loginData.message);
+
+                    localStorage.setItem("usernameData", username.value);
+                    localStorage.setItem("flagData", 1);
+
+                    window.location.href = "./chat.html"
+                    window.location.replace("./chat.html")
+
+
                 } else {
                     // Login failed, show an error message or take appropriate action
                     console.error('Login failed:', loginData.message);
@@ -259,6 +268,7 @@
     </style>
 </body>
 </html>
+
 
 
 
