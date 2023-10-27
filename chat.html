@@ -7,7 +7,7 @@
         height:100%;
         margin: 0;
         padding: 0;
-        overflow: scroll;
+        overflow: hidden;
     }    
 
     p {
@@ -26,7 +26,7 @@
         display: flex;
         flex-direction: column;
         justify-content: flex-end;
-        height: 250em; /* Adjust the height as needed */
+        height: 28em; /* Adjust the height as needed */
         border: 1px solid #ccc;
         padding: 10px;
         background-color: #282b30;   
@@ -131,7 +131,6 @@
 
         // Function to send a POST request to the backend to store the message
         function sendMessage() {
-            scrollDown();
             const message = document.getElementById("message").value;
             // const apiUrl = "https://whispbackend.duckdns.org/messageDB";
             const apiUrl = "http://127.0.0.1:5001/messageDB"
@@ -161,6 +160,7 @@
             .catch(error => {
                 document.getElementById("response").textContent = "Error: " + error;
             });
+            scrollDown();
         }
 
         // Function to send a GET request to fetch the message
