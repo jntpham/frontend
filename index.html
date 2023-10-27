@@ -1,7 +1,12 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <!-- <base href="frontend/"> -->
+    <style>
+        .content {
+            padding-left: 11%; /* Adjust this value based on your sidebar width */
+            width: 90%; /* Takes up the remaining width */
+        }
+    </style>
 </head>
 <body style="left:10%">
     <div id="navbar-container"></div>
@@ -16,5 +21,8 @@
         xhttp.open("GET", "/frontend/navbar.html", true);
         xhttp.send();
     </script>
+    <div class="content">
+        <h1>WELCOME</h1>
+    </div>
 </body>
 </html>
