@@ -9,7 +9,7 @@
         padding: 10px;
     }
     html, body {
-        height: 95%;
+        height: 100%;
         margin: 0;
         padding: 0;
         overflow-x: hidden;
@@ -68,7 +68,6 @@
     }
 </style>
 </head>
-
 <body>
     <div id="navbar-container"></div>
     <script>
@@ -122,6 +121,15 @@
             const formattedHours = hours % 12 || 12;
             return `${date} ${formattedHours}:${minutes} ${ampm}`;
         }
+
+
+        // brings the chat to bottom
+        function scrollDown(){
+            const chatContainer = document.getElementById("response");
+            chatContainer.scrollTop = chatContainer.scrollHeight;
+        }
+        scrollDown();
+
         // Function to send a POST request to the backend to store the message
         function sendMessage() {
             const message = document.getElementById("message").value;
@@ -133,7 +141,7 @@
                 message: "<p style=font-weight:bold;display:inline>" + username + '</p> &nbsp' + '<p style=color:#808080;display:inline>'+getCurrentTime() + "</p><br>" + "" + '&nbsp -> &nbsp' + message
             };
             document.getElementById("message").value = '';
-
+            scrollDown();
             // Perform the POST request to store the message
             fetch(apiUrl, {
                 method: "POST",
@@ -157,8 +165,8 @@
         }
 
         // Function to send a GET request to fetch the message
-// Function to send a GET request to fetch the message
-function getMessage() {
+        // Function to send a GET request to fetch the message
+        function getMessage() {
             // const apiUrl = "https://whispbackend.duckdns.org/messageDB";
             const apiUrl = "http://127.0.0.1:5001/messageDB"
 
@@ -208,6 +216,4 @@ function getMessage() {
         setInterval(getMessage, 100);
     </script>
 </body>
-</html>
-
 </html>
