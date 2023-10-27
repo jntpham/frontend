@@ -128,7 +128,6 @@
             const chatContainer = document.getElementById("response");
             chatContainer.scrollTop = chatContainer.scrollHeight;
         }
-        scrollDown();
 
         // Function to send a POST request to the backend to store the message
         function sendMessage() {
@@ -141,7 +140,6 @@
                 message: "<p style=font-weight:bold;display:inline>" + username + '</p> &nbsp' + '<p style=color:#808080;display:inline>'+getCurrentTime() + "</p><br>" + "" + '&nbsp -> &nbsp' + message
             };
             document.getElementById("message").value = '';
-            scrollDown();
             // Perform the POST request to store the message
             fetch(apiUrl, {
                 method: "POST",
@@ -189,6 +187,7 @@
                     tempstring += data[i] + "<br>";
                 }
                 document.getElementById("response").innerHTML = tempstring;
+                scrollDown();
             })
             .catch(error => {
                 document.getElementById("response").textContent = "Error: " + error;
