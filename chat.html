@@ -66,6 +66,10 @@
         padding: 10px 20px;
         cursor: pointer;
     }
+    .content {
+        padding-left: 10%; /* Adjust this value based on your sidebar width */
+        width: 90%; /* Takes up the remaining width */
+    }
 </style>
 </head>
 <body>
@@ -80,17 +84,20 @@
         };
         xhttp.open("GET", "/frontend/navbar.html", true);
         xhttp.send();
+        
     </script>
-
-    <div id="chat-container">
-        <p id="response"></p>
-        <div id="messages"></div>
+    <div class="content">
+        <div id="chat-container">
+            <p id="response"></p>
+            <div id="messages"></div>
+        </div>
+        <div id="input-container">
+            <input name="text" type="text" id="message" placeholder="Type your message..." value="">
+            <button id="send-button">Send</button>
+        </div>
+        <button onclick=logout()> Logout </button>
     </div>
-    <div id="input-container">
-        <input name="text" type="text" id="message" placeholder="Type your message..." value="">
-        <button id="send-button">Send</button>
-    </div>
-    <button onclick=logout()> Logout </button>
+    
     <script>
         var username = localStorage.getItem("usernameData")
         console.log(username)
