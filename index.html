@@ -3,7 +3,7 @@
 <head>
     <!-- <base href="frontend/"> -->
 </head>
-<body>
+<body style="left:10%">
     <div id="navbar-container"></div>
     <script>
         const navbarContainer = document.getElementById("navbar-container");
@@ -13,9 +13,8 @@
                 navbarContainer.innerHTML = this.responseText;
             }
         };
-        xhttp.open("GET", "./navbar.html", true);
+        xhttp.open("GET", "/frontend/navbar.html", true);
         xhttp.send();
     </script>
-    <h1>WELCOME</h1>
 </body>
 </html>
