@@ -715,9 +715,13 @@ function getBoard() {
         return response.json();
     })
     .then(data => {
-        if(!data.equals(seeBoard())){ //the board was changed
-            // create function to update the chessboard based 
+        if(!data[board].equals(seeBoard())){ //the board was changed
+            updateBoard(data);
+            tog = data[turn];
+            blackCastleChance = data[bCastleChance];
+            whiteCastleChance = data[wCastleChance];
         }
+        else{} // no board changes
     })
     .catch(error => {
         document.getElementById("response").textContent = "Error: " + error;
@@ -740,12 +744,17 @@ function seeBoard()
     }
     return board;
 } 
-function sendBoard() {
+function sendBoard() { // SEND THE items CONSTANT IN POST
     const apiUrl = "http://127.0.0.1:5001/chessboardDB"
     // const apiUrl = 
-    const board = seeBoard();
-    // const white = True;
-    console.log(board);
+    const currentBoard = seeBoard();
+    console.log(currentBoard);
+    const items = {
+        board : currentBoard, //actual board
+        turn : tog, //integer (odd is white's turn/even is black's turn)
+        bCastleChance : blackCastleChance, //boolean
+        wCastleChance : whiteCastleChance //boolean
+    }
     fetch(apiUrl, {
         method: "POST",
         headers: {
@@ -769,15 +778,22 @@ function sendBoard() {
 function updateBoard(board){ // update the board based on the new board list
     for(let i = 0; i < 8; i++) {
         for(let k = 0; k < 8; k++) {
-            var iden = "b" + (i+1).toString() + "0" + (k+1).toString();
-            document.getElementById(iden).innerText = board[7-i][k];
-            coloring();
-            insertImage();
-            // IT WORKS OMG NO WAY
+            if(tog%2 == 0) // if black's turn, display board upside down
+            {
+                var iden = "b" + (i+1).toString() + "0" + (k+1).toString();
+                document.getElementById(iden).innerText = board[i][k];
+                coloring();
+                insertImage();
+            }
+            else{ //if white's turn
+                var iden = "b" + (i+1).toString() + "0" + (k+1).toString();
+                document.getElementById(iden).innerText = board[7-i][k];
+                coloring();
+                insertImage();
+            }
         }
     }
 }
-
 function resetBoard(){
     //ADD clear the database 
     updateBoard(reset);    
