@@ -803,5 +803,4 @@ var reset = [
     ['Wpawn', 'Wpawn', 'Wpawn', 'Wpawn', 'Wpawn', 'Wpawn', 'Wpawn', 'Wpawn'],
     ['Wrook', 'Wknight', 'Wbishop', 'Wqueen', 'Wking', 'Wbishop', 'Wknight', 'Wrook']
 ];
-updateBoard(demo)
 setInterval(sendBoard, 100);
