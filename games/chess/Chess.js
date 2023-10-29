@@ -575,27 +575,6 @@ document.querySelectorAll('.box').forEach(item => {
     })
 
 })
-function getBoard()
-{
-    const board = new Array(8);
-    for (let i = 0; i < 8; i++) 
-    {
-        board[i] = new Array(8).fill(null);
-    }
-    for(let i = 0; i < board.length; i ++)
-    {
-        for(let k = 0; k < board[i].length; k++)
-        {
-            var iden = "b" + (i+1).toString() + "0" + (k+1).toString();
-            board[7-i][k] = document.getElementById(iden).innerText;
-        }
-    }
-    return board;
-} 
-function updateBoard() {
-    const board = getBoard();
-    console.log(board);
-}
 
 // Moving the element
 document.querySelectorAll('.box').forEach(item => {
@@ -719,4 +698,110 @@ document.querySelectorAll('.box').forEach(ee => {
     })
 })
 
-setInterval(updateBoard, 100);
+
+
+
+/* CHESS STUFF */
+
+function getBoard() {
+    const apiUrl = "http://127.0.0.1:5001/chessboardDB";
+    fetch(apiUrl, {
+        method: "GET"
+    })
+    .then(response => {
+        if (!response.ok) {
+            throw new Error('Network response was not ok');
+        }
+        return response.json();
+    })
+    .then(data => {
+        if(!data.equals(seeBoard())){ //the board was changed
+            // create function to update the chessboard based 
+        }
+    })
+    .catch(error => {
+        document.getElementById("response").textContent = "Error: " + error;
+    });
+}
+function seeBoard()
+{
+    const board = new Array(8);
+    for (let i = 0; i < 8; i++) 
+    {
+        board[i] = new Array(8).fill(null);
+    }
+    for(let i = 0; i < board.length; i ++)
+    {
+        for(let k = 0; k < board[i].length; k++)
+        {
+            var iden = "b" + (i+1).toString() + "0" + (k+1).toString();
+            board[7-i][k] = document.getElementById(iden).innerText;
+        }
+    }
+    return board;
+} 
+function sendBoard() {
+    const apiUrl = "http://127.0.0.1:5001/chessboardDB"
+    // const apiUrl = 
+    const board = seeBoard();
+    // const white = True;
+    console.log(board);
+    fetch(apiUrl, {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json"
+        },
+        body: JSON.stringify(data)
+    })
+    .then(response => {
+        if (!response.ok) {
+            throw new Error('Network response was not ok');
+        }
+        return response.json();
+    })
+    .then(data => {
+        // document.getElementById("response").textContent = "Response: " + JSON.stringify(data.message);
+    })
+    .catch(error => {
+        document.getElementById("response").textContent = "Error: " + error;
+    });
+}
+function updateBoard(board){ // update the board based on the new board list
+    for(let i = 0; i < 8; i++) {
+        for(let k = 0; k < 8; k++) {
+            var iden = "b" + (i+1).toString() + "0" + (k+1).toString();
+            document.getElementById(iden).innerText = board[7-i][k];
+            coloring();
+            insertImage();
+            // IT WORKS OMG NO WAY
+        }
+    }
+}
+
+function resetBoard(){
+    //ADD clear the database 
+    updateBoard(reset);    
+}
+// var demo = [
+//     ['Brook', 'Bknight', 'Bbishop', 'Bqueen', 'Bking', 'Bbishop', 'Bknight', 'Brook'],
+//     ['Bpawn', 'Bpawn', 'Bpawn', 'Bpawn', 'Bpawn', 'Bpawn', 'Bpawn', 'Bpawn'],
+//     ['', '', '', '', '', '', '', ''],
+//     ['', '', '', '', '', '', '', ''],
+//     ['', '', '', 'Wpawn', '', '', '', ''],
+//     ['', '', '', '', '', '', '', ''],
+//     ['Wpawn', 'Wpawn', 'Wpawn', '', 'Wpawn', 'Wpawn', 'Wpawn', 'Wpawn'],
+//     ['Wrook', 'Wknight', 'Wbishop', 'Wqueen', 'Wking', 'Wbishop', 'Wknight', 'Wrook']
+// ];
+
+var reset = [
+    ['Brook', 'Bknight', 'Bbishop', 'Bqueen', 'Bking', 'Bbishop', 'Bknight', 'Brook'],
+    ['Bpawn', 'Bpawn', 'Bpawn', 'Bpawn', 'Bpawn', 'Bpawn', 'Bpawn', 'Bpawn'],
+    ['', '', '', '', '', '', '', ''],
+    ['', '', '', '', '', '', '', ''],
+    ['', '', '', '', '', '', '', ''],
+    ['', '', '', '', '', '', '', ''],
+    ['Wpawn', 'Wpawn', 'Wpawn', 'Wpawn', 'Wpawn', 'Wpawn', 'Wpawn', 'Wpawn'],
+    ['Wrook', 'Wknight', 'Wbishop', 'Wqueen', 'Wking', 'Wbishop', 'Wknight', 'Wrook']
+];
+updateBoard(demo)
+setInterval(sendBoard, 100);
