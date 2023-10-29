@@ -796,6 +796,7 @@ function updateBoard(board){ // update the board based on the new board list
 }
 function resetBoard(){
     //ADD clear the database 
+    tog = 1;
     updateBoard(reset);    
 }
 // var demo = [

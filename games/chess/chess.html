@@ -12,6 +12,25 @@
             padding-left: 10%; /* Adjust this value based on your sidebar width */
             width: 90%; /* Takes up the remaining width */
         }
+        #button {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            position:absolute;
+            left:53%;
+            top:50%;
+            border-radius: 8px;
+            font-size: 300%;
+            border: none;
+            outline: none;
+            color: white;
+            background-color: #40444b;
+            padding: 8px 10px;
+            text-align: center;
+            display: flex;
+            align-items: center;
+        }
+        #button:hover {
+            background-color: #292b2f;
+        }
     </style>
 </head>
 
@@ -26,13 +45,14 @@
                 navbarContainer.innerHTML = this.responseText;
             }
         };
-        xhttp.open("GET", "/frontend/navbar.html", true);
+        xhttp.open("GET", "/navbar.html", true);
         xhttp.send();
     </script>
 
     
     <div class="content">
         <h2 id="tog">White's Turn</h2>
+        <button id = "button" onclick="resetBoard()">NEW GAME</button>
         <ul>
             <div class="divv" id="row8">
                 <li class="box" id="b801">Brook</li>
