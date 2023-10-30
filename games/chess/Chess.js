@@ -744,10 +744,10 @@ function getBoard() {
             // console.log(seeBoard())
             // console.log(data["board"])
             console.log('Getting the board')
-            updateBoard(data["board"]);
             tog = data["turn"];
             blackCastleChance = data["bCastleChance"];
             whiteCastleChance = data["wCastleChance"];
+            updateBoard(data["board"]);
         }
         else{} // no board changes
     })
@@ -791,9 +791,6 @@ function seeBoard()
 //     return false;
 // }
 
-//ERROR SOMEWHERE HERE WITH SENDING THE BOARD WITH CAPTURED PIECES 
-// IDK WHY BUT IT WONT PUSH CHANGES WHEN A PIECE IS CAPTURED
-// MIGHT BE DUE TO LOCATION OF sendBoard()
 
 function sendBoard(cBoard = seeBoard(), qReset = false) { // SEND THE items CONSTANT IN POST
     const apiUrl = "http://127.0.0.1:5001/chessboardDB"
