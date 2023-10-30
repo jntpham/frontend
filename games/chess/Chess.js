@@ -122,9 +122,11 @@ document.querySelectorAll('.box').forEach(item => {
 
         if (item.style.backgroundColor == 'green' && item.innerText.length == 0) {
             tog = tog + 1
+            console.log("TEST!")
         }
         else if (item.style.backgroundColor == 'aqua' && item.innerText.length == 0) {
             tog = tog + 1
+            console.log("TEST2")
         }
 
         else if (item.style.backgroundColor == 'green' && item.innerText.length !== 0) {
