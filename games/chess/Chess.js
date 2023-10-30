@@ -1,7 +1,11 @@
 // Inserting the Images
-getBoard()
-function insertImage() {
+// getBoard()
 
+tog = 1
+whiteCastleChance=true
+blackCastleChance=true
+
+function insertImage() {
     document.querySelectorAll('.box').forEach(image => {
 
         if (image.innerText.length !== 0) {
@@ -106,9 +110,7 @@ function reddish() {
 
 
 
-tog = 1
-whiteCastleChance=true
-blackCastleChance=true
+
 
 document.querySelectorAll('.box').forEach(item => {
 
@@ -129,6 +131,7 @@ document.querySelectorAll('.box').forEach(item => {
 
             document.querySelectorAll('.box').forEach(i => {
                 if (i.style.backgroundColor == 'pink') {
+                    console.log("TEST3")
                     pinkId = i.id
                     pinkText = i.innerText
 
@@ -137,7 +140,7 @@ document.querySelectorAll('.box').forEach(item => {
                     coloring()
                     insertImage()
                     tog = tog + 1
-
+                    sendBoard()
                 }
             })
         }
@@ -570,7 +573,7 @@ document.querySelectorAll('.box').forEach(item => {
                 }
             }, 100)
         }
-
+    
 
 
     })
@@ -582,7 +585,6 @@ document.querySelectorAll('.box').forEach(item => {
 
     item.addEventListener('click', function () {
 
-
         if (item.style.backgroundColor == 'pink') {
 
             pinkId = item.id
@@ -591,7 +593,6 @@ document.querySelectorAll('.box').forEach(item => {
             document.querySelectorAll('.box').forEach(item2 => {
 
                 item2.addEventListener('click', function () {
-
                     getId = item2.id
                     arr = Array.from(getId)
                     arr.shift()
@@ -601,7 +602,6 @@ document.querySelectorAll('.box').forEach(item => {
                     a = aside + aup
 
                     if (item2.style.backgroundColor == 'green' && item2.innerText.length == 0) {
-
                         if (pinkText == `Wpawn` && aup == 800) {
 
                             document.getElementById(`b${a}`).innerText = 'Wqueen'
@@ -627,8 +627,10 @@ document.querySelectorAll('.box').forEach(item => {
                             coloring()
                             insertImage()
                         }
-
+                        sendBoard()
+                        console.log(seeBoard())
                     }
+                    
 
                     else if (item2.style.backgroundColor == 'aqua') {
                         if(item2.id=='b103'){
@@ -641,7 +643,6 @@ document.querySelectorAll('.box').forEach(item => {
                             whiteCastleChance=false
                             coloring()
                             insertImage()
-                            
                         }
                         else if(item2.id=='b107'){
                             document.getElementById('b105').innerText = ''
@@ -652,7 +653,6 @@ document.querySelectorAll('.box').forEach(item => {
                             whiteCastleChance=false
                             coloring()
                             insertImage()
-
                         }
                         else if(item2.id=='b803'){
                             document.getElementById('b801').innerText = ''
@@ -664,7 +664,6 @@ document.querySelectorAll('.box').forEach(item => {
                             blackCastleChance=false
                             coloring()
                             insertImage()
-                            
                         }
                         else if(item2.id=='b807'){
                             document.getElementById('b805').innerText = ''
@@ -675,14 +674,11 @@ document.querySelectorAll('.box').forEach(item => {
                             blackCastleChance=false
                             coloring()
                             insertImage()
-
                         }
                     }
-
                 })
             })
         }
-        
     })
     
 })
@@ -703,7 +699,16 @@ document.querySelectorAll('.box').forEach(ee => {
 
 
 /* CHESS STUFF */
-
+var reset = [
+    ['Brook', 'Bknight', 'Bbishop', 'Bqueen', 'Bking', 'Bbishop', 'Bknight', 'Brook'],
+    ['Bpawn', 'Bpawn', 'Bpawn', 'Bpawn', 'Bpawn', 'Bpawn', 'Bpawn', 'Bpawn'],
+    ['', '', '', '', '', '', '', ''],
+    ['', '', '', '', '', '', '', ''],
+    ['', '', '', '', '', '', '', ''],
+    ['', '', '', '', '', '', '', ''],
+    ['Wpawn', 'Wpawn', 'Wpawn', 'Wpawn', 'Wpawn', 'Wpawn', 'Wpawn', 'Wpawn'],
+    ['Wrook', 'Wknight', 'Wbishop', 'Wqueen', 'Wking', 'Wbishop', 'Wknight', 'Wrook']
+];
 function getBoard() {
     const apiUrl = "http://127.0.0.1:5001/chessboardDB";
     fetch(apiUrl, {
@@ -727,8 +732,13 @@ function getBoard() {
         // blackCastleChance = data["bCastleChance"];
         // whiteCastleChance = data["wCastleChance"];
         // console.log(data["board"] == seeBoard())
-        if(!(data["board"] == seeBoard())){ //the board was changed
-            console.log('true')
+        const equalsCheck = (a, b) => {
+            return JSON.stringify(a) === JSON.stringify(b);
+        }
+        if(!(equalsCheck(data["board"],seeBoard()))){ //the board was changed
+            // console.log(seeBoard())
+            // console.log(data["board"])
+            console.log('Getting the board')
             updateBoard(data["board"]);
             tog = data["turn"];
             blackCastleChance = data["bCastleChance"];
@@ -758,17 +768,39 @@ function seeBoard()
     }
     return board;
 } 
-function sendBoard() { // SEND THE items CONSTANT IN POST
+
+// var prevBoard = seeBoard()
+// function checkPush(){
+//     const equalsCheck = (a, b) => {
+//         return JSON.stringify(a) === JSON.stringify(b);
+//     }
+//     if(equalsCheck(prevBoard,seeBoard())){ // CHECK FOR A BETTER WAY TO SOMEHOW CHECK IF A PIECE HAS BEEN MOVED
+//         console.log(prevBoard);
+//         console.log(seeBoard());
+//         return true;
+//     }
+//     else{
+//         prevBoard = seeBoard();
+//         return false;
+//     }
+//     return false;
+// }
+
+//ERROR SOMEWHERE HERE WITH SENDING THE BOARD WITH CAPTURED PIECES 
+// IDK WHY BUT IT WONT PUSH CHANGES WHEN A PIECE IS CAPTURED
+// MIGHT BE DUE TO LOCATION OF sendBoard()
+
+function sendBoard(cBoard = seeBoard(), qReset = false) { // SEND THE items CONSTANT IN POST
     const apiUrl = "http://127.0.0.1:5001/chessboardDB"
     // const apiUrl = 
-    const currentBoard = seeBoard();
+    const currentBoard = cBoard;
     const items = {
         board : currentBoard, //actual board
         turn : tog, //integer (odd is white's turn/even is black's turn)
         bCastleChance : blackCastleChance, //boolean
         wCastleChance : whiteCastleChance //boolean
     }
-    // console.log("Sending data:", JSON.stringify(items["board"])); // Add this line
+    console.log("Sending data:", JSON.stringify(items["board"])); // Add this line
     fetch(apiUrl, {
         method: "POST",
         headers: {
@@ -787,27 +819,33 @@ function sendBoard() { // SEND THE items CONSTANT IN POST
 function updateBoard(board){ // update the board based on the new board list
     for(let i = 0; i < 8; i++) {
         for(let k = 0; k < 8; k++) {
-            if(tog%2 == 0) // if black's turn, display board upside down
-            {
-                var iden = "b" + (i+1).toString() + "0" + (k+1).toString();
-                document.getElementById(iden).innerText = board[i][k];
-                coloring();
-                insertImage();
-            }
-            else{ //if white's turn
-                var iden = "b" + (i+1).toString() + "0" + (k+1).toString();
-                document.getElementById(iden).innerText = board[7-i][k];
-                coloring();
-                insertImage();
-            }
+            var iden = "b" + (i+1).toString() + "0" + (k+1).toString();
+            document.getElementById(iden).innerText = board[7-i][k];
+            coloring();
+            insertImage();
+            // if(tog%2 == 0) // if black's turn, display board upside down
+            // {
+            //     var iden = "b" + (i+1).toString() + "0" + (k+1).toString();
+            //     document.getElementById(iden).innerText = board[i][k];
+            //     coloring();
+            //     insertImage();
+            // }
+            // else{ //if white's turn
+            //     var iden = "b" + (i+1).toString() + "0" + (k+1).toString();
+            //     document.getElementById(iden).innerText = board[7-i][k];
+            //     coloring();
+            //     insertImage();
+            // }
         }
     }
 }
 function resetBoard(){
-    //ADD clear the database 
     tog = 1;
     updateBoard(reset);    
+    sendBoard(reset, true);
+    console.log("BOARD CLEARED")
 }
+
 // var demo = [
 //     ['Brook', 'Bknight', 'Bbishop', 'Bqueen', 'Bking', 'Bbishop', 'Bknight', 'Brook'],
 //     ['Bpawn', 'Bpawn', 'Bpawn', 'Bpawn', 'Bpawn', 'Bpawn', 'Bpawn', 'Bpawn'],
@@ -819,20 +857,9 @@ function resetBoard(){
 //     ['Wrook', 'Wknight', 'Wbishop', 'Wqueen', 'Wking', 'Wbishop', 'Wknight', 'Wrook']
 // ];
 
-var reset = [
-    ['Brook', 'Bknight', 'Bbishop', 'Bqueen', 'Bking', 'Bbishop', 'Bknight', 'Brook'],
-    ['Bpawn', 'Bpawn', 'Bpawn', 'Bpawn', 'Bpawn', 'Bpawn', 'Bpawn', 'Bpawn'],
-    ['', '', '', '', '', '', '', ''],
-    ['', '', '', '', '', '', '', ''],
-    ['', '', '', '', '', '', '', ''],
-    ['', '', '', '', '', '', '', ''],
-    ['Wpawn', 'Wpawn', 'Wpawn', 'Wpawn', 'Wpawn', 'Wpawn', 'Wpawn', 'Wpawn'],
-    ['Wrook', 'Wknight', 'Wbishop', 'Wqueen', 'Wking', 'Wbishop', 'Wknight', 'Wrook']
-];
 
 
-getBoard()
 // RUN GET BEFORE SEND
-setInterval(getBoard, 10);
-setInterval(sendBoard, 100);
+setInterval(getBoard, 100);
+// setInterval(sendBoard, 100);
 // updateBoard(demo)
