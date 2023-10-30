@@ -715,13 +715,22 @@ function getBoard() {
         return response.json();
     })
     .then(data => {
-        if(!data.board.equals(seeBoard())){ //the board was changed
-            updateBoard(data);
-            tog = data.turn;
-            blackCastleChance = data.bCastleChance;
-            whiteCastleChance = data.wCastleChance;
-        }
-        else{} // no board changes
+        // data = JSON.stringify(data);
+        data = JSON.parse(data);
+        console.log(data["board"][0]);
+        console.log(data["turn"]);
+        updateBoard(data["board"]);
+        tog = data["turn"];
+        blackCastleChance = data["bCastleChance"];
+        whiteCastleChance = data["wCastleChance"];
+        // if(!data["board"].equals(seeBoard())){ //the board was changed
+        //     console.log('true')
+        //     updateBoard(data["board"]);
+        //     tog = data["turn"];
+        //     blackCastleChance = data["bCastleChance"];
+        //     whiteCastleChance = data["wCastleChance"];
+        // }
+        // else{} // no board changes
     })
     .catch(error => {
         document.getElementById("response").textContent = "Error: " + error;
@@ -754,25 +763,20 @@ function sendBoard() { // SEND THE items CONSTANT IN POST
         bCastleChance : blackCastleChance, //boolean
         wCastleChance : whiteCastleChance //boolean
     }
-    console.log(items);
+    console.log("Sending data:", JSON.stringify(items["board"])); // Add this line
     fetch(apiUrl, {
         method: "POST",
         headers: {
-            "Content-Type": "application/json"
+            "Content-Type": "application/json",
         },
-        body: JSON.stringify(items)
+        body: JSON.stringify({board: items}), // Ensure the data is in the correct format
     })
-    .then(response => {
-        if (!response.ok) {
-            throw new Error('Network response was not ok');
-        }
-        return response.json();
-    })
+    .then(response => response.json())
     .then(data => {
-        // document.getElementById("response").textContent = "Response: " + JSON.stringify(data.message);
+        console.log(data); // Log the response from the server
     })
     .catch(error => {
-        document.getElementById("response").textContent = "Error: " + error;
+        console.error(error);
     });
 }
 function updateBoard(board){ // update the board based on the new board list
@@ -821,3 +825,6 @@ var reset = [
     ['Wrook', 'Wknight', 'Wbishop', 'Wqueen', 'Wking', 'Wbishop', 'Wknight', 'Wrook']
 ];
 setInterval(sendBoard, 100);
+setInterval(getBoard, 100);
+
+// updateBoard(demo)
