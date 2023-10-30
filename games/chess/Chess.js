@@ -1,4 +1,5 @@
 // Inserting the Images
+getBoard()
 function insertImage() {
 
     document.querySelectorAll('.box').forEach(image => {
@@ -714,27 +715,31 @@ function getBoard() {
         }
         return response.json();
     })
-    .then(data => {
+    .then(data => { // there should be an if statement somewhere here cuz its running updateBoard periodically
         // data = JSON.stringify(data);
         data = JSON.parse(data);
-        console.log(data["board"][0]);
-        console.log(data["turn"]);
-        updateBoard(data["board"]);
-        tog = data["turn"];
-        blackCastleChance = data["bCastleChance"];
-        whiteCastleChance = data["wCastleChance"];
-        // if(!data["board"].equals(seeBoard())){ //the board was changed
-        //     console.log('true')
-        //     updateBoard(data["board"]);
-        //     tog = data["turn"];
-        //     blackCastleChance = data["bCastleChance"];
-        //     whiteCastleChance = data["wCastleChance"];
-        // }
-        // else{} // no board changes
+
+        // console.log(data["board"][0]);
+        // console.log(data["board"]);
+        
+        // updateBoard(data["board"]);
+        // tog = data["turn"];
+        // blackCastleChance = data["bCastleChance"];
+        // whiteCastleChance = data["wCastleChance"];
+        // console.log(data["board"] == seeBoard())
+        if(!(data["board"] == seeBoard())){ //the board was changed
+            console.log('true')
+            updateBoard(data["board"]);
+            tog = data["turn"];
+            blackCastleChance = data["bCastleChance"];
+            whiteCastleChance = data["wCastleChance"];
+        }
+        else{} // no board changes
     })
     .catch(error => {
-        document.getElementById("response").textContent = "Error: " + error;
+        // document.getElementById("response").textContent = "Error: " + error;
     });
+    return "HELO"
 }
 function seeBoard()
 {
@@ -763,7 +768,7 @@ function sendBoard() { // SEND THE items CONSTANT IN POST
         bCastleChance : blackCastleChance, //boolean
         wCastleChance : whiteCastleChance //boolean
     }
-    console.log("Sending data:", JSON.stringify(items["board"])); // Add this line
+    // console.log("Sending data:", JSON.stringify(items["board"])); // Add this line
     fetch(apiUrl, {
         method: "POST",
         headers: {
@@ -824,7 +829,10 @@ var reset = [
     ['Wpawn', 'Wpawn', 'Wpawn', 'Wpawn', 'Wpawn', 'Wpawn', 'Wpawn', 'Wpawn'],
     ['Wrook', 'Wknight', 'Wbishop', 'Wqueen', 'Wking', 'Wbishop', 'Wknight', 'Wrook']
 ];
-setInterval(sendBoard, 100);
-setInterval(getBoard, 100);
 
+
+getBoard()
+// RUN GET BEFORE SEND
+setInterval(getBoard, 10);
+setInterval(sendBoard, 100);
 // updateBoard(demo)
