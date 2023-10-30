@@ -715,11 +715,11 @@ function getBoard() {
         return response.json();
     })
     .then(data => {
-        if(!data[board].equals(seeBoard())){ //the board was changed
+        if(!data.board.equals(seeBoard())){ //the board was changed
             updateBoard(data);
-            tog = data[turn];
-            blackCastleChance = data[bCastleChance];
-            whiteCastleChance = data[wCastleChance];
+            tog = data.turn;
+            blackCastleChance = data.bCastleChance;
+            whiteCastleChance = data.wCastleChance;
         }
         else{} // no board changes
     })
@@ -748,19 +748,19 @@ function sendBoard() { // SEND THE items CONSTANT IN POST
     const apiUrl = "http://127.0.0.1:5001/chessboardDB"
     // const apiUrl = 
     const currentBoard = seeBoard();
-    console.log(currentBoard);
     const items = {
         board : currentBoard, //actual board
         turn : tog, //integer (odd is white's turn/even is black's turn)
         bCastleChance : blackCastleChance, //boolean
         wCastleChance : whiteCastleChance //boolean
     }
+    console.log(items);
     fetch(apiUrl, {
         method: "POST",
         headers: {
             "Content-Type": "application/json"
         },
-        body: JSON.stringify(data)
+        body: JSON.stringify(items)
     })
     .then(response => {
         if (!response.ok) {
