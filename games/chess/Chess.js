@@ -568,10 +568,12 @@ document.querySelectorAll('.box').forEach(item => {
                 if (tog % 2 == 0) {
                     alert('White Wins !!')
                     location.reload()
+                    resetBoard()
                 }
                 else if (tog % 2 !== 0) {
                     alert('Black Wins !!')
-                    location.reload()
+                    location.reload();
+                    resetBoard();
                 }
             }, 100)
         }
@@ -712,8 +714,8 @@ var reset = [
     ['Wrook', 'Wknight', 'Wbishop', 'Wqueen', 'Wking', 'Wbishop', 'Wknight', 'Wrook']
 ];
 function getBoard() {
-    // const apiUrl = "http://127.0.0.1:5001/chessboardDB";
-    const apiUrl = "https://whispbackend.duckdns.org/chessboardDB"
+    const apiUrl = "http://127.0.0.1:5001/chessboardDB";
+    // const apiUrl = "https://whispbackend.duckdns.org/chessboardDB"
     fetch(apiUrl, {
         method: "GET"
     })
@@ -794,8 +796,8 @@ function seeBoard()
 // MIGHT BE DUE TO LOCATION OF sendBoard()
 
 function sendBoard(cBoard = seeBoard(), qReset = false) { // SEND THE items CONSTANT IN POST
-    // const apiUrl = "http://127.0.0.1:5001/chessboardDB"
-    const apiUrl = "https://whispbackend.duckdns.org/messageDB"
+    const apiUrl = "http://127.0.0.1:5001/chessboardDB"
+    // const apiUrl = "https://whispbackend.duckdns.org/messageDB"
     const currentBoard = cBoard;
     const items = {
         board : currentBoard, //actual board
