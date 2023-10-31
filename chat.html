@@ -132,8 +132,8 @@
         // Function to send a POST request to the backend to store the message
         function sendMessage() {
             const message = document.getElementById("message").value;
-            const apiUrl = "https://whispbackend.duckdns.org/messageDB";
-            //const apiUrl = "http://127.0.0.1:5001/messageDB"
+            //const apiUrl = "https://whispbackend.duckdns.org/messageDB";
+            const apiUrl = "http://127.0.0.1:5001/messageDB"
 
             // Create a data object to send in the POST request
             const data = {
@@ -166,8 +166,8 @@
         // Function to send a GET request to fetch the message
         // Function to send a GET request to fetch the message
         function getMessage() {
-            const apiUrl = "https://whispbackend.duckdns.org/messageDB";
-            //const apiUrl = "http://127.0.0.1:5001/messageDB"
+            //const apiUrl = "https://whispbackend.duckdns.org/messageDB";
+            const apiUrl = "http://127.0.0.1:5001/messageDB"
 
             // Perform a GET request to fetch the message
             fetch(apiUrl, {
