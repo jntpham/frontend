@@ -4,12 +4,13 @@
 tog = 1
 whiteCastleChance=true
 blackCastleChance=true
-
+// user = "white" or "black"
+user = "black"
 function insertImage() {
     document.querySelectorAll('.box').forEach(image => {
 
         if (image.innerText.length !== 0) {
-            if (image.innerText == 'Wpawn' || image.innerText == 'Bpawn') {
+            if (image.innerText == 'Wpawn' || image.innerTex == 'Bpawn') {
                 image.innerHTML = `${image.innerText} <img class='allimg allpawn' src="${image.innerText}.png" alt="">`
                 image.style.cursor = 'pointer'
 
@@ -142,7 +143,9 @@ document.querySelectorAll('.box').forEach(item => {
                     coloring()
                     insertImage()
                     tog = tog + 1
-                    sendBoard()
+                    if(userTurn(user)){
+                        sendBoard()
+                    }
                 }
             })
         }
@@ -631,7 +634,9 @@ document.querySelectorAll('.box').forEach(item => {
                             coloring()
                             insertImage()
                         }
-                        sendBoard()
+                        if(userTurn(user)){
+                            sendBoard()
+                        }
                         console.log(seeBoard())
                     }
                     
@@ -703,6 +708,15 @@ document.querySelectorAll('.box').forEach(ee => {
 
 
 /* CHESS STUFF */
+function userTurn(color){
+    // if(tog%2==0 && color == "black"){
+    //     return true;
+    // }
+    // else if(tog%2==1 && color=="white"){
+    //     return true;
+    // }
+    return true;
+}
 var reset = [
     ['Brook', 'Bknight', 'Bbishop', 'Bqueen', 'Bking', 'Bbishop', 'Bknight', 'Brook'],
     ['Bpawn', 'Bpawn', 'Bpawn', 'Bpawn', 'Bpawn', 'Bpawn', 'Bpawn', 'Bpawn'],
