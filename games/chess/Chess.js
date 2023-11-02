@@ -5,7 +5,7 @@ tog = 1
 whiteCastleChance=true
 blackCastleChance=true
 // user = "white" or "black"
-user = "black"
+// color = "white";
 function insertImage() {
     document.querySelectorAll('.box').forEach(image => {
 
@@ -143,7 +143,7 @@ document.querySelectorAll('.box').forEach(item => {
                     coloring()
                     insertImage()
                     tog = tog + 1
-                    if(userTurn(user)){
+                    if(userTurn(color)){
                         sendBoard()
                     }
                 }
@@ -634,7 +634,7 @@ document.querySelectorAll('.box').forEach(item => {
                             coloring()
                             insertImage()
                         }
-                        if(userTurn(user)){
+                        if(userTurn(color)){
                             sendBoard()
                         }
                         console.log(seeBoard())
@@ -709,13 +709,13 @@ document.querySelectorAll('.box').forEach(ee => {
 
 /* CHESS STUFF */
 function userTurn(color){
-    // if(tog%2==0 && color == "black"){
-    //     return true;
-    // }
-    // else if(tog%2==1 && color=="white"){
-    //     return true;
-    // }
-    return true;
+    if(tog%2==1 && color == "black"){
+        return true;
+    }
+    else if(tog%2==0 && color=="white"){
+        return true;
+    }
+    return false;
 }
 var reset = [
     ['Brook', 'Bknight', 'Bbishop', 'Bqueen', 'Bking', 'Bbishop', 'Bknight', 'Brook'],
@@ -728,8 +728,8 @@ var reset = [
     ['Wrook', 'Wknight', 'Wbishop', 'Wqueen', 'Wking', 'Wbishop', 'Wknight', 'Wrook']
 ];
 function getBoard() {
-    // const apiUrl = "http://127.0.0.1:5001/chessboardDB";
-    const apiUrl = "https://whispbackend.duckdns.org/chessboardDB"
+    const apiUrl = "http://127.0.0.1:5001/chessboardDB";
+    // const apiUrl = "https://whispbackend.duckdns.org/chessboardDB"
     fetch(apiUrl, {
         method: "GET"
     })
@@ -770,6 +770,16 @@ function getBoard() {
     });
     return "HELO"
 }
+function setColor(){
+    playerColor = prompt("ENTER PLAYER COLOR ('white'/'black')");
+    while(true){
+        if(playerColor.toLowerCase() == "black" || playerColor.toLowerCase() == "white"){
+            break;
+        }
+        playerColor = prompt("ENTER PLAYER COLOR ('white'/'black')");
+    }
+    color = playerColor.toLowerCase();
+}
 function seeBoard()
 {
     const board = new Array(8);
@@ -807,8 +817,8 @@ function seeBoard()
 
 
 function sendBoard(cBoard = seeBoard(), qReset = false) { // SEND THE items CONSTANT IN POST
-    // const apiUrl = "http://127.0.0.1:5001/chessboardDB"
-    const apiUrl = "https://whispbackend.duckdns.org/chessboardDB"
+    const apiUrl = "http://127.0.0.1:5001/chessboardDB"
+    // const apiUrl = "https://whispbackend.duckdns.org/chessboardDB"
     const currentBoard = cBoard;
     const items = {
         board : currentBoard, //actual board
