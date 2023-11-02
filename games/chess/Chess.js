@@ -4,12 +4,13 @@
 tog = 1
 whiteCastleChance=true
 blackCastleChance=true
-
+// user = "white" or "black"
+// color = "white";
 function insertImage() {
     document.querySelectorAll('.box').forEach(image => {
 
         if (image.innerText.length !== 0) {
-            if (image.innerText == 'Wpawn' || image.innerText == 'Bpawn') {
+            if (image.innerText == 'Wpawn' || image.innerTex == 'Bpawn') {
                 image.innerHTML = `${image.innerText} <img class='allimg allpawn' src="${image.innerText}.png" alt="">`
                 image.style.cursor = 'pointer'
 
@@ -142,7 +143,9 @@ document.querySelectorAll('.box').forEach(item => {
                     coloring()
                     insertImage()
                     tog = tog + 1
-                    sendBoard()
+                    if(userTurn(color)){
+                        sendBoard()
+                    }
                 }
             })
         }
@@ -631,7 +634,9 @@ document.querySelectorAll('.box').forEach(item => {
                             coloring()
                             insertImage()
                         }
-                        sendBoard()
+                        if(userTurn(color)){
+                            sendBoard()
+                        }
                         console.log(seeBoard())
                     }
                     
@@ -703,6 +708,15 @@ document.querySelectorAll('.box').forEach(ee => {
 
 
 /* CHESS STUFF */
+function userTurn(color){
+    if(tog%2==1 && color == "black"){
+        return true;
+    }
+    else if(tog%2==0 && color=="white"){
+        return true;
+    }
+    return false;
+}
 var reset = [
     ['Brook', 'Bknight', 'Bbishop', 'Bqueen', 'Bking', 'Bbishop', 'Bknight', 'Brook'],
     ['Bpawn', 'Bpawn', 'Bpawn', 'Bpawn', 'Bpawn', 'Bpawn', 'Bpawn', 'Bpawn'],
@@ -715,7 +729,7 @@ var reset = [
 ];
 function getBoard() {
     const apiUrl = "http://127.0.0.1:5001/chessboardDB";
-    // const apiUrl = "https://whispbackend.duckdns.org/chessboardDB"
+    //const apiUrl = "https://whispbackend.duckdns.org/chessboardDB"
     fetch(apiUrl, {
         method: "GET"
     })
@@ -754,7 +768,17 @@ function getBoard() {
     .catch(error => {
         // document.getElementById("response").textContent = "Error: " + error;
     });
-    return "HELO"
+    return "HELLO"
+}
+function setColor(){
+    playerColor = prompt("ENTER PLAYER COLOR ('white'/'black')");
+    while(true){
+        if(playerColor.toLowerCase() == "black" || playerColor.toLowerCase() == "white"){
+            break;
+        }
+        playerColor = prompt("ENTER PLAYER COLOR ('white'/'black')");
+    }
+    color = playerColor.toLowerCase();
 }
 function seeBoard()
 {
@@ -794,7 +818,7 @@ function seeBoard()
 
 function sendBoard(cBoard = seeBoard(), qReset = false) { // SEND THE items CONSTANT IN POST
     const apiUrl = "http://127.0.0.1:5001/chessboardDB"
-    // const apiUrl = "https://whispbackend.duckdns.org/messageDB"
+    // const apiUrl = "https://whispbackend.duckdns.org/chessboardDB"
     const currentBoard = cBoard;
     const items = {
         board : currentBoard, //actual board
@@ -862,6 +886,6 @@ function resetBoard(){
 
 
 // RUN GET BEFORE SEND
-setInterval(getBoard, 100);
+setInterval(getBoard, 70);
 // setInterval(sendBoard, 100);
 // updateBoard(demo)

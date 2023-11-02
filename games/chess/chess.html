@@ -34,7 +34,7 @@
 </head>
 
 
-<body>
+<body onload="setColor()">
     <div id="navbar-container"></div>
     <script>
         const navbarContainer = document.getElementById("navbar-container");
@@ -50,8 +50,9 @@
 
     
     <div class="content">
-        <button id = "button" onclick="resetBoard()">NEW GAME</button>
         <h2 style="color:transparent" id="tog">White's Turn</h2>
+        <button id = "button" onclick="resetBoard()">NEW GAME</button>
+        <!-- <button id = "button" onclick="setColor()">Choose Color</button> -->
         <ul>
             <div class="divv" id="row8">
                 <li class="box" id="b801">Brook</li>
