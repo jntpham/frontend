@@ -192,6 +192,7 @@
                     tempstring += data[i] + "<br>";
                 }
                 document.getElementById("response").innerHTML = tempstring;
+                scrollDown();
             })
             .catch(error => {
                 document.getElementById("response").textContent = "Error: " + error;
