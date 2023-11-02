@@ -886,6 +886,6 @@ function resetBoard(){
 
 
 // RUN GET BEFORE SEND
-setInterval(getBoard, 100);
+setInterval(getBoard, 50);
 // setInterval(sendBoard, 100);
 // updateBoard(demo)
