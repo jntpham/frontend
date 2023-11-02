@@ -16,6 +16,9 @@
     #response {
         height : 100%;
         overflow-y: scroll;
+        width:100%;
+        word-wrap:break-word;
+        overflow-x: hidden;
     }
     body {
         font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
@@ -67,7 +70,7 @@
     
 </style>
 </head>
-<body>
+<body onload="scrollDown()">
     <div id="navbar-container"></div>
     <script>
         const navbarContainer = document.getElementById("navbar-container");
