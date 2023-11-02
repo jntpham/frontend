@@ -81,7 +81,7 @@
             // Remove auto-moving boxes
             for (var i = 0; i < this.boxes.length; i++) {
               this.el.removeChild(this.boxes[i]);
-            } 
+            }
             this.boxes = [];
 
             // Add between 1 and 5 auto-moving boxes
@@ -102,8 +102,11 @@
         // If the stationary box reaches the position of the movable box without collision
         if (stationaryPosition.z <= 0) {
           alert('You lose! Score: ' + this.score);
-          var player = prompt("What is you name?")
-
+          var player = prompt("What is you name?");
+          var players = [];
+          players.push(player)
+          var boardscore = [];
+          boardscore.push(this.score)
           // Reset the game
           this.score = 0;
           this.movableBox.setAttribute('position', '0 1 0');

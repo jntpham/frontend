@@ -25,6 +25,7 @@
         this.movableBox = document.getElementById('movableBox');
         this.stationaryBox = document.getElementById('stationaryBox');
         this.scoreDisplay = document.getElementById('scoreDisplay');
+        this.boxes = []; // Array to store auto-moving boxes
         this.score = 0;
         this.updateScoreDisplay();
 
@@ -40,12 +41,30 @@
         return x + ' 1 ' + z;
       },
 
+      createAutoMovingBox: function () {
+        var newBox = document.createElement('a-box');
+        newBox.setAttribute('width', '1');
+        newBox.setAttribute('height', '1');
+        newBox.setAttribute('depth', '1');
+        newBox.setAttribute('color', 'blue');
+        newBox.setAttribute('position', this.generateRandomPosition());
+        this.el.appendChild(newBox);
+        return newBox;
+      },
+
       tick: function () {
         var movablePosition = this.movableBox.getAttribute('position');
         var stationaryPosition = this.stationaryBox.getAttribute('position');
 
         // Move the stationary box closer along the z-axis to the movable box
         stationaryPosition.z -= 0.03;
+
+        // Move the auto-moving boxes in the same way as the stationary box
+        for (var i = 0; i < this.boxes.length; i++) {
+          var boxPosition = this.boxes[i].getAttribute('position');
+          boxPosition.z -= 0.03;
+          this.boxes[i].setAttribute('position', boxPosition);
+        }
 
         // Check for collision
         if (
@@ -59,6 +78,19 @@
           if (this.score > 1) {
             alert('Next Level');
 
+            // Remove auto-moving boxes
+            for (var i = 0; i < this.boxes.length; i++) {
+              this.el.removeChild(this.boxes[i]);
+            }
+            this.boxes = [];
+
+            // Add between 1 and 5 auto-moving boxes
+            var numBoxes = Math.floor(Math.random() * 5) + 1;
+            for (var i = 0; i < numBoxes; i++) {
+              var newBox = this.createAutoMovingBox();
+              this.boxes.push(newBox);
+            }
+
             // Reset the position of the movable box
             this.movableBox.setAttribute('position', '0 1 0');
 
@@ -69,12 +101,21 @@
 
         // If the stationary box reaches the position of the movable box without collision
         if (stationaryPosition.z <= 0) {
-          alert('You lose!', this.score);
-          var statscore = this.score;
-
+          alert('You lose! Score: ' + this.score);
+          var player = prompt("What is you name?");
+          var players = [];
+          players.push(player)
+          var boardscore = [];
+          boardscore.push(this.score)
           // Reset the game
           this.score = 0;
           this.movableBox.setAttribute('position', '0 1 0');
+
+          // Remove auto-moving boxes
+          for (var i = 0; i < this.boxes.length; i++) {
+            this.el.removeChild(this.boxes[i]);
+          }
+          this.boxes = [];
 
           // Generate a random initial position for the stationary box in front of the movable box
           this.stationaryBox.setAttribute('position', this.generateRandomPosition());

@@ -1,0 +1,44 @@
+<html>
+    <h1>Leaderboard</h1>
+<script>
+    import{players, boardscore} from aframe3d.html
+</script>
+<head>
+    <style>
+        table {
+            border-collapse: collapse;
+            width: 50%;
+        }
+
+        table, th, td {
+            border: 1px solid black;
+        }
+
+        th, td {
+            padding: 10px;
+            text-align: left;
+        }
+    </style>
+</head>
+<body>
+
+<table>
+    <tr>
+        <th>Attempt</th>
+        <th>Player</th>
+        <th>Board Score</th>
+    </tr>
+    <script>
+
+        for (let i = 0; i < players.length; i++) {
+            document.write(`<tr>
+                <td>${i + 1}</td>
+                <td>${players[i]}</td>
+                <td>${boardscore[i]}</td>
+            </tr>`);
+        }
+    </script>
+</table>
+
+</body>
+</html>
