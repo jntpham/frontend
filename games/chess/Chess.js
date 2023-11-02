@@ -808,7 +808,7 @@ function seeBoard()
 
 function sendBoard(cBoard = seeBoard(), qReset = false) { // SEND THE items CONSTANT IN POST
     // const apiUrl = "http://127.0.0.1:5001/chessboardDB"
-    const apiUrl = "https://whispbackend.duckdns.org/messageDB"
+    const apiUrl = "https://whispbackend.duckdns.org/chessboardDB"
     const currentBoard = cBoard;
     const items = {
         board : currentBoard, //actual board
