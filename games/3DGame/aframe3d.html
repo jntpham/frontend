@@ -102,11 +102,15 @@
         // If the stationary box reaches the position of the movable box without collision
         if (stationaryPosition.z <= 0) {
           alert('You lose! Score: ' + this.score);
-          var player = prompt("What is you name?");
-          var players = [];
-          players.push(player)
-          var boardscore = [];
-          boardscore.push(this.score)
+         // After the player enters their name when they lose
+            var player = prompt("What is your name?");
+            var players = JSON.parse(localStorage.getItem('players')) || [];
+            var boardscore = JSON.parse(localStorage.getItem('boardscore')) || [];
+            players.push(player);
+            boardscore.push(this.score);
+            localStorage.setItem('players', JSON.stringify(players));
+            localStorage.setItem('boardscore', JSON.stringify(boardscore));
+
           // Reset the game
           this.score = 0;
           this.movableBox.setAttribute('position', '0 1 0');

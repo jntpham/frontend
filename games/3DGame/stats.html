@@ -1,44 +1,31 @@
+<!DOCTYPE html>
 <html>
-    <h1>Leaderboard</h1>
-<script>
-    import{players, boardscore} from aframe3d.html
-</script>
 <head>
-    <style>
-        table {
-            border-collapse: collapse;
-            width: 50%;
-        }
-
-        table, th, td {
-            border: 1px solid black;
-        }
-
-        th, td {
-            padding: 10px;
-            text-align: left;
-        }
-    </style>
+  <title>Leaderboard</title>
 </head>
 <body>
-
-<table>
+  <h1>Leaderboard</h1>
+  <table border = "1" >
     <tr>
-        <th>Attempt</th>
-        <th>Player</th>
-        <th>Board Score</th>
+      <th>Player Name</th>
+      <th>Score</th>
     </tr>
-    <script>
+    <!-- JavaScript to populate the table -->
+  </table>
 
-        for (let i = 0; i < players.length; i++) {
-            document.write(`<tr>
-                <td>${i + 1}</td>
-                <td>${players[i]}</td>
-                <td>${boardscore[i]}</td>
-            </tr>`);
-        }
-    </script>
-</table>
+  <script>
+    var players = JSON.parse(localStorage.getItem('players')) || [];
+    var boardscore = JSON.parse(localStorage.getItem('boardscore')) || [];
+    var table = document.querySelector('table');
 
+    // Populate the table with player names and scores
+    for (var i = 0; i < players.length; i++) {
+      var row = table.insertRow(-1);
+      var cell1 = row.insertCell(0);
+      var cell2 = row.insertCell(1);
+      cell1.textContent = players[i];
+      cell2.textContent = boardscore[i];
+    }
+  </script>
 </body>
 </html>
