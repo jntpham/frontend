@@ -1,12 +1,11 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Register</title>
 </head>
-<div class="video-container">
-    <iframe width="560" height="315" src="https://www.youtube.com/embed/x7SQaDTSrVg?si=FnZkm98umj3-_fVz?&autoplay=1&mute=1&playsinline=1&controls=0&showinfo=0&loop=1" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
- </div>
- <body>
+<body>
     <form method="POST" action="/registerAcc" class="animated-form">
         <h1>Register For Whisp</h1>
         <img width="200" height="200" src="https://cdn.discordapp.com/attachments/909947635715153952/1159715288594518016/image-removebg-preview.png?ex=65320807&is=651f9307&hm=7e5c7faa637bf72b94c41a70a23ca13ab65531bd9cb90d7604379ac76f6560b1" style="border: none;">
@@ -30,10 +29,39 @@
             <button type="submit" class="animated-button">Register</button>
         </div>
         
-        <p>Already have an account? <a href="/frontend/login.html">Log In</a></p>
+        <p>Already have an account? <a href="/login">Log In</a></p>
     </form>
+
+    <script>
+        async function submitForm(event) {
+            event.preventDefault();
+
+            const apiUrl = "http://127.0.0.1:5001/registerAcc";
+            const formData = new FormData(document.getElementById('registerForm'));
+
+            try {
+                const registerResponse = await fetch(apiUrl, {
+                    method: 'POST',
+                    body: formData,
+                    mode: 'cors',
+                });
+
+                if (!registerResponse.ok) {
+                    throw new Error(`HTTP error! Status: ${registerResponse.status}`);
+                }
+
+                const responseData = await registerResponse.json();
+                console.log('Registration successful:', responseData);
+                window.location.href = "./login";
+            } catch (error) {
+                console.error('Error during registration:', error.message);
+                alert('An error occurred during registration.');
+            }
+        }
+    </script>
 </body>
 </html>
+
 
 <style>
 
