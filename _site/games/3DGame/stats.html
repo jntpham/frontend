@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Leaderboard</title>
+</head>
+<body>
+  <h1>Leaderboard</h1>
+  <table border = "1" >
+    <tr>
+      <th>Player Name</th>
+      <th>Score</th>
+    </tr>
+    <!-- JavaScript to populate the table -->
+  </table>
+
+  <script>
+    var players = JSON.parse(localStorage.getItem('players')) || [];
+    var boardscore = JSON.parse(localStorage.getItem('boardscore')) || [];
+    var table = document.querySelector('table');
+
+    // Populate the table with player names and scores
+    for (var i = 0; i < players.length; i++) {
+      var row = table.insertRow(-1);
+      var cell1 = row.insertCell(0);
+      var cell2 = row.insertCell(1);
+      cell1.textContent = players[i];
+      cell2.textContent = boardscore[i];
+    }
+  </script>
+</body>
+</html>

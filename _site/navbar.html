@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            margin: 0;
+            padding: 0;
+            color: white;
+            background-color: #2f3136;
+            display: flex;
+        }
+        .sidebar {
+            height: 100%;
+            width: 10%;
+            position: fixed;
+            top: 0;
+            left: 0;
+            background-color: #36393f;
+            overflow-y: hidden;
+            overflow-x: hidden;
+        }
+        .navbar {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        .navbar a {
+            border: none;
+            outline: none;
+            color: white;
+            text-decoration: none;
+            padding: 8px 10px;
+            width: 100%;
+            text-align: center;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            position: relative;
+        }
+        .navbar a:hover {
+            background-color: #40444b;
+        }
+        .dropdown {
+            position: relative;
+            padding: 8px 10px;
+            font-size: 20px;
+        }
+        .dropdown .dropbtn {
+            border: none;
+            outline: none;
+            color: white;
+            background-color: inherit;
+            padding: 8px 10px;
+            width: 200%;
+            text-align: center;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .dropbtn:hover {
+            background-color: #40444b;
+        }
+        .dropdown-content {
+            display: none;
+            position: absolute;
+            background-color: #292b2f;
+            min-width: 200px;
+            z-index: 2;
+            left: 40%; /* Center horizontally */
+            transform: translateX(-50%); /* Center horizontally */
+            top: 100%; /* Position below the link */
+        }
+        .dropdown-content  a  {
+            color:  white;
+            text-decoration:  none;
+            padding:  6px  10px;
+            display:  block;
+            white-space:  nowrap;
+            position:left;
+            text-align:  center;
+    }
+        .dropdown-content a:hover {
+            background-color: #40444b;
+        }
+        .dropdown:hover .dropdown-content {
+            display: block;
+        }
+        .navbar button, .navbar .dropbtn {
+            font-size: 18px;
+        }
+    </style>
+</head>
+<body>
+    <div class="sidebar">
+        <div class="navbar">
+            <img class="form-group" style="width:50%; height:50%" src="https://cdn.discordapp.com/attachments/909947635715153952/1159715288594518016/image-removebg-preview.png?ex=65320807&is=651f9307&hm=7e5c7faa637bf72b94c41a70a23ca13ab65531bd9cb90d7604379ac76f6560b1" class="center">
+            <div class="dropdown">
+                <a href="/frontend/index.html">
+                    Home
+                </a>
+            </div>
+            <div class="dropdown">
+                <button class="dropbtn">
+                    Games
+                </button>
+                <div class="dropdown-content">
+                    <a href="/frontend/games/chess/chess.html">Chess</a>
+                    <!-- <a href="/frontend/games/connect_four/index.html">Connect  <br>Four</a> -->
+                    <a href="/frontend/games/3DGame/menu.html">Hitbox <br>Game</a>
+                </div>
+            </div>
+            <div class="dropdown">
+                <a href="/frontend/chat.html">
+                    Chat
+                </a>
+            </div>
+            <!-- <div class="dropdown">
+                <button class="dropbtn">
+                    Leaderboards
+                </button>
+                <div class="dropdown-content">
+                    <a href="/frontend/chessleader.html">Chess</a>
+                    <a href="/frontend/connectleader.html">Connect 4</a>
+                </div>
+            </div> -->
+        </div>
+    </div>
+</body>
+</html>

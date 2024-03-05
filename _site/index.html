@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <style>
+        .content {
+            padding-left: 10%; /* Adjust this value based on your sidebar width */
+            width: 90%; /* Takes up the remaining width */
+        }
+    </style>
+</head>
+<body style="left:10%">
+    <div id="navbar-container"></div>
+    <script>
+        const navbarContainer = document.getElementById("navbar-container");
+        const xhttp = new XMLHttpRequest();
+        xhttp.onreadystatechange = function() {
+            if (this.readyState == 4 && this.status == 200) {
+                navbarContainer.innerHTML = this.responseText;
+            }
+        };
+        xhttp.open("GET", "/frontend/navbar.html", true);
+        xhttp.send();
+    </script>
+    <div class="content">
+        <h1 style="text-align:center">WELCOME TO WHISP</h1>
+        <img src="https://cdn.discordapp.com/attachments/909947635715153952/1159715288594518016/image-removebg-preview.png?ex=65320807&is=651f9307&hm=7e5c7faa637bf72b94c41a70a23ca13ab65531bd9cb90d7604379ac76f6560b1">
+    </div>
+</body>
+</html>
